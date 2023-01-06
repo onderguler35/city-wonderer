@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Wonderer</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-    />
-    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
@@ -23,23 +20,76 @@
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
       crossorigin=""
     ></script>
-  </head>
+</head>
 
-  <body>
+
+<body>
     <!-- Header -->
-    <nav id="navBar">
-      <div class="icons">
-        <img src="assets/images/logo.jpg" />
-      </div>
-      <header class="heading">City Wonderer</header>
-    </nav>
+    <header>
+        <img src="assets/images/logo.png" alt="">
+        <h1>City Wonderer</h1>
+        <h3>Hop for the adventurers!</h3>
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+                aria-expanded="false">
+                I want to go there!
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Action</a>
+            </div>
+        </div>
+    </header>
 
     <!--Main container for the rest part of page -->
-    <main id="container" class="container">
-      <!--Welcome to City Wonderer -->
-      <div class="welcome">
-        <h2 class="h2">Create a new page in your Travel Book</h2>
-      </div>
+    <main id='container' class="container">
+        <!--Welcome to City Wonderer -->
+        <div class="welcome">
+            <h2 class='h2'>Create a new page in your Travel Book </h2>
+        </div>
+
+        <!-- search for a city -->
+
+        <div id='search-area'>
+            <form id='search-city'>
+                <!-- input any city here -->
+                <input name='city' type="text" placeholder="Write city of your dream here" id='city' autofocus='true'
+                    class='city-input' />
+                <!-- the submit button -->
+                <button type="submit" id='search-btn' class='btn'>Travel now</button>
+            </form>
+
+            <!-- section for city news (and our partners) -->
+            <section id="categoryGrid">
+                <div id="city_1" class="categoryGridArea">
+                    <div class="heading">City 1</div>
+                </div>
+                <div id="city_2" class="categoryGridArea">
+                    <div class="heading">City 2</div>
+                </div>
+                <div id="city_3" class="categoryGridArea">
+                    <div class="heading">City 3</div>
+                </div>
+                <div id="city_4" class="categoryGridArea">
+                    <div class="heading">City 4</div>
+                </div>
+                <div id="city_5" class="categoryGridArea">
+                    <div class="heading">City 5</div>
+                </div>
+            </section>
+        </div>
+        <!-- Press button above and get results-->
+        <div class="row">
+            <div class="col1">
+                <div id="map"></div>
+                <div id="city_info"></div>
+                <div id='five-day' class='row spacebetween'></div>
+            </div>
+            <!-- "My city choice" button -->
+            <button type="submit" id="add-btn" class="btn">Add</button>
+
+            <!-- Aside -->
+            <div class="col2">
+                <div class="aside">
 
       <!-- search for a city -->
 
