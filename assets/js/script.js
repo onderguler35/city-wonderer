@@ -1,17 +1,10 @@
 const mapTilerKey = "NtCHCLnEB2T8gRRbY03N";
 const otmKey = "5ae2e3f221c38a28845f05b6e7ab02f17ff4dbd94eaeeefe20c5e4d6";
 
-mapZoomLocation = [51.458580017089844, -2.116158962249756]; //Latitude, longitude.
+mapZoomLocation = [51.458580017089844, -2.116158962249756]; //Latitude, longitude. Chippenham
 zoomLevel = 12; // Higher number = larger zoom.
 var map = L.map("map").setView(mapZoomLocation, zoomLevel);
 
-async function getPOI(latitude, longitude, radiusMeters) {
-  let response = await fetch(
-    `https://api.opentripmap.com/0.1/en/places/radius?radius=${radiusMeters}&lon=${longitude}&lat=${latitude}&rate=3h&format=json&apikey=${otmKey}`
-  );
-  let data = response.json();
-  return data;
-}
 
 function renderMap() {
   L.tileLayer(
@@ -23,6 +16,7 @@ function renderMap() {
   ).addTo(map);
 }
 
+//Add Markers to a map, acceps objects array from API
 function addMarkersToMap(POIs) {
   for (const poi of POIs) {
     const lat = poi.point.lat;
