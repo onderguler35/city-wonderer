@@ -4,8 +4,16 @@ var openMapKinds = 'theatres_and_entertainments'; //accomodations, architecture,
 var openMapLimit = '15';
 var openMapRadius = '1000'; //meters
 
-getCoordinates(cityName);
-
+//Capture input data and pass it to next function
+function init() {
+    $("#search-city").on("submit", function (event) {
+        cityName = $("#city").val();
+        event.preventDefault();
+        getCoordinates(cityName);
+        console.log(cityName);
+    })
+};
+init();
 
 //Get coordinates for the searched for place using OpenTrip API
 function getCoordinates(placeName) {
