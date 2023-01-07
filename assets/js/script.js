@@ -1,9 +1,15 @@
 var openMapAPIKey = '5ae2e3f221c38a28845f05b6ba80233b310c7a56ad48628d52fcdbe3';
+var weatherAPIKey = '6ca9f0eebaa8221a45b6dae6209aad2c';
 var cityName = 'London';
 var openMapKinds = 'theatres_and_entertainments'; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = '15';
 var openMapRadius = '1000'; //meters
-var searchInput = $("#city");
+var searchInput = $('#city');
+var addButton = $('#add-btn');
+var asideContainer = $('.aside');
+var weatherCardWrapper = $("#five-day");
+var dropDownWishList = $('.dropdown-menu');
+var todayDate = moment();
 const mapTilerKey = "NtCHCLnEB2T8gRRbY03N";
 const otmKey = "5ae2e3f221c38a28845f05b6e7ab02f17ff4dbd94eaeeefe20c5e4d6";
 var map;
@@ -15,12 +21,31 @@ function init() {
     $("#search-city").on("submit", function (event) {
         cityName = searchInput.val();
         event.preventDefault();
-        getCoordinates(cityName);        
+        getCoordinates(event);        
     })
+
+    addButton.on("click", function (event) {
+      saveLocationHistory();
+    })
+
+    //Capture the click of the wishlist buttons from the drop-down
+    dropDownWishList.on('click', function(e){
+      getCoordinates(e);
+    });
+
+    populateWishListDropDown();
 };
 
 //Get coordinates for the searched for place using OpenTrip API
-function getCoordinates(placeName) {
+function getCoordinates(event) {
+
+    var placeName = "";
+    //Check the trigger - search button or wishlist button and get the town name
+    if (event.type == "submit") {
+      placeName = searchInput.val();
+    } else if (event.type == "click") {
+      placeName = event.target.innerText;
+    }
 
     //Check if there is a town name provided, request the data from the API and call functions to display it
     if (placeName) {      
@@ -88,12 +113,73 @@ function getPOI(lon, lat) {
 //Get 5 day forecast for the given coordinates
 function getWeather(lon, lat) {
 
+  $.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${weatherAPIKey}&units=metric`)
+            .then(function (forecastData) {
+              displayForecastWeather(forecastData);
+            });
+  
+}
+
+//Add the five cards on the page with forecast for the next five days
+function displayForecastWeather(forecastData) {
+
+  weatherCardWrapper.html("");
+
+  var lastForecastObj = null;
+  var numNoonForecast = 0;
+  var forecastMoment = null;
+
+  //Loop through the results for the next 5 days
+  for (var forecastObj of forecastData.list) {
+    
+    forecastMoment = moment.unix(forecastObj.dt);
+    lastForecastObj = forecastObj;
+
+    //Filter results for the next 5 days forecast at 12 noon
+    if (forecastMoment.format("DD") > todayDate.format("DD") && forecastMoment.format("HH") == "12"){
+
+      numNoonForecast++;
+
+      weatherCardWrapper.append(`
+      <div class="weather-card">
+        <h5>${forecastMoment.format("ddd, DD MMM")}</h3>
+        <img class="inline" src="https://openweathermap.org/img/w/${forecastObj.weather[0].icon}.png" alt="${forecastObj.weather[0].description}" title="${forecastObj.weather[0].description}">
+        <p>Temp: ${Math.round(forecastObj.main.temp)}&deg C</p>
+        <p>Wind: ${forecastObj.wind.speed} m/s</p>
+        <p>Humidity: ${forecastObj.main.humidity}%</p>
+      </div>     
+      `)
+    }
+  }
+
+  //If the response from the API does not contain forecase for 12 noon on the 5th day, 
+  //then display the last available forecase for that day
+  if (numNoonForecast <= 4) {
+    forecastMoment = moment.unix(lastForecastObj.dt);
+    weatherCardWrapper.append(`
+    <div class="weather-card">
+      <h5>${forecastMoment.format("ddd, DD MMM")}</h3>
+      <img class="inline" src="https://openweathermap.org/img/w/${lastForecastObj.weather[0].icon}.png" alt="${lastForecastObj.weather[0].description}" title="${lastForecastObj.weather[0].description}">
+      <p>Temp: ${Math.round(lastForecastObj.main.temp)}&deg C</p>
+      <p>Wind: ${lastForecastObj.wind.speed} m/s</p>
+      <p>Humidity: ${lastForecastObj.main.humidity}%</p>
+    </div>     
+    `)
+  }
+
 }
 
 //Populate the right-hand-side area with the places of interest, each being a link to the wikidata pagecd
 function populatePOIAside(poiArray) {
 
-    //https://www.wikidata.org/wiki/Q5694616
+  $('.city-link').remove();
+
+  for (var poi of poiArray) {
+    asideContainer.append(`
+    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poi.name}</a>
+    `);
+  }
+  
 }
 
 function renderMap(lon, lat) {
@@ -106,7 +192,7 @@ function renderMap(lon, lat) {
   }
 
   mapZoomLocation = [lat, lon];
-  zoomLevel = 13; // Higher number = larger zoom.
+  zoomLevel = 14; // Higher number = larger zoom.
   map = L.map("map").setView(mapZoomLocation, zoomLevel);
 
   L.tileLayer(
@@ -140,9 +226,48 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3><h5>CATEGORY: <br> ${poiTypeMarkup} </h5> <a href=\'https://www.wikidata.org/wiki/${wikidataID}\' target=_blank>Visit Wikidata page.</a> `
+        `<h3>${poiTitle}</h3><h5>CATEGORY: <br> ${poiTypeMarkup} </h5> <a href=\'https://www.wikidata.org/wiki/${wikidataID}\' target="_blank">Visit Wikidata page.</a> `
       );
   }
 }
 
 
+//Save locations in local storage and call the function to update the drop down
+function saveLocationHistory() {
+  
+  var wishlistStorageArr = JSON.parse(localStorage.getItem('wishlist'));
+  var exists = false;
+
+  if (wishlistStorageArr != null) {
+     //Check if this search already exists in the history list
+     for (var wishlistText of wishlistStorageArr) {
+       if (cityName.toLowerCase().trim() == wishlistText.toLowerCase().trim()){
+         exists = true;
+       }    
+     }
+     if (!exists) {
+       wishlistStorageArr.push(cityName);
+     }
+
+  } else {
+     wishlistStorageArr = [cityName];
+  }
+  localStorage.setItem('wishlist', JSON.stringify(wishlistStorageArr));
+
+}
+
+function populateWishListDropDown() {
+
+  var wishlistStorageArr = JSON.parse(localStorage.getItem('wishlist'));
+  
+  dropDownWishList.empty();
+
+  if (wishlistStorageArr != null) {
+    for (var wishlistText of wishlistStorageArr) {
+      dropDownWishList.prepend(`
+        <button class="dropdown-item" type="button">${wishlistText}</button>
+      `)
+    }
+
+  }
+}
