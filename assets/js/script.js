@@ -6,6 +6,7 @@ var openMapRadius = '1000'; //meters
 var searchInput = $('#city');
 var addButton = $('#add-btn');
 var asideContainer = $('.aside');
+var dropDownWishList = $('.dropdown-menu');
 const mapTilerKey = "NtCHCLnEB2T8gRRbY03N";
 const otmKey = "5ae2e3f221c38a28845f05b6e7ab02f17ff4dbd94eaeeefe20c5e4d6";
 var map;
@@ -17,12 +18,31 @@ function init() {
     $("#search-city").on("submit", function (event) {
         cityName = searchInput.val();
         event.preventDefault();
-        getCoordinates(cityName);        
+        getCoordinates(event);        
     })
+
+    addButton.on("click", function (event) {
+      saveLocationHistory();
+    })
+
+    //Capture the click of the wishlist buttons from the drop-down
+    dropDownWishList.on('click', function(e){
+      getCoordinates(e);
+    });
+
+    populateWishListDropDown();
 };
 
 //Get coordinates for the searched for place using OpenTrip API
-function getCoordinates(placeName) {
+function getCoordinates(event) {
+
+    var placeName = "";
+    //Check the trigger - search button or wishlist button and get the town name
+    if (event.type == "submit") {
+      placeName = searchInput.val();
+    } else if (event.type == "click") {
+      placeName = event.target.innerText;
+    }
 
     //Check if there is a town name provided, request the data from the API and call functions to display it
     if (placeName) {      
@@ -155,3 +175,42 @@ function addMarkersToMap(POIs) {
 }
 
 
+//Save locations in local storage and call the function to update the drop down
+function saveLocationHistory() {
+  
+  var wishlistStorageArr = JSON.parse(localStorage.getItem('wishlist'));
+  var exists = false;
+
+  if (wishlistStorageArr != null) {
+     //Check if this search already exists in the history list
+     for (var wishlistText of wishlistStorageArr) {
+       if (cityName.toLowerCase().trim() == wishlistText.toLowerCase().trim()){
+         exists = true;
+       }    
+     }
+     if (!exists) {
+       wishlistStorageArr.push(cityName);
+     }
+
+  } else {
+     wishlistStorageArr = [cityName];
+  }
+  localStorage.setItem('wishlist', JSON.stringify(wishlistStorageArr));
+
+}
+
+function populateWishListDropDown() {
+
+  var wishlistStorageArr = JSON.parse(localStorage.getItem('wishlist'));
+  
+  dropDownWishList.empty();
+
+  if (wishlistStorageArr != null) {
+    for (var wishlistText of wishlistStorageArr) {
+      dropDownWishList.prepend(`
+        <button class="dropdown-item" type="button">${wishlistText}</button>
+      `)
+    }
+
+  }
+}
