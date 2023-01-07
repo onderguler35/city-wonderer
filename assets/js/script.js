@@ -96,13 +96,13 @@ function getWeather(lon, lat) {
 function populatePOIAside(poiArray) {
 
   $('.city-link').remove();
+
   for (var poi of poiArray) {
     asideContainer.append(`
     <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poi.name}</a>
     `);
   }
   
-    //https://www.wikidata.org/wiki/Q5694616
 }
 
 function renderMap(lon, lat) {
