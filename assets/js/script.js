@@ -3,7 +3,9 @@ var cityName = 'London';
 var openMapKinds = 'theatres_and_entertainments'; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = '15';
 var openMapRadius = '1000'; //meters
-var searchInput = $("#city");
+var searchInput = $('#city');
+var addButton = $('#add-btn');
+var asideContainer = $('.aside');
 const mapTilerKey = "NtCHCLnEB2T8gRRbY03N";
 const otmKey = "5ae2e3f221c38a28845f05b6e7ab02f17ff4dbd94eaeeefe20c5e4d6";
 var map;
@@ -93,6 +95,13 @@ function getWeather(lon, lat) {
 //Populate the right-hand-side area with the places of interest, each being a link to the wikidata pagecd
 function populatePOIAside(poiArray) {
 
+  $('.city-link').remove();
+  for (var poi of poiArray) {
+    asideContainer.append(`
+    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poi.name}</a>
+    `);
+  }
+  
     //https://www.wikidata.org/wiki/Q5694616
 }
 
@@ -106,7 +115,7 @@ function renderMap(lon, lat) {
   }
 
   mapZoomLocation = [lat, lon];
-  zoomLevel = 13; // Higher number = larger zoom.
+  zoomLevel = 14; // Higher number = larger zoom.
   map = L.map("map").setView(mapZoomLocation, zoomLevel);
 
   L.tileLayer(
@@ -140,7 +149,7 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3><h5>CATEGORY: <br> ${poiTypeMarkup} </h5> <a href=\'https://www.wikidata.org/wiki/${wikidataID}\' target=_blank>Visit Wikidata page.</a> `
+        `<h3>${poiTitle}</h3><h5>CATEGORY: <br> ${poiTypeMarkup} </h5> <a href=\'https://www.wikidata.org/wiki/${wikidataID}\' target="_blank">Visit Wikidata page.</a> `
       );
   }
 }
