@@ -15,8 +15,7 @@ function init() {
     $("#search-city").on("submit", function (event) {
         cityName = searchInput.val();
         event.preventDefault();
-        getCoordinates(cityName);
-        console.log(cityName);
+        getCoordinates(cityName);        
     })
 };
 
