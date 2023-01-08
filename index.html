@@ -7,7 +7,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Wonderer</title>
     <link rel="stylesheet" href="assets/css/style.css" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
 </head>
 
 
@@ -18,12 +30,11 @@
         <div id="title">City Wonderer</div>
         <div id="slogan">Hop for the adventurers!</div>
         <div class="dropdown">
-            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                aria-expanded="false">
-                I want to go there!
-            </a>
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              I want to go there!
+            </button>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Action</a>
+              <button class="dropdown-item" type="button">London</button>
             </div>
         </div>
     </header>
@@ -35,65 +46,69 @@
             <h2 class='h2'>Create a new page in your Travel Book </h2>
         </div>
 
-        <!-- search for a city -->
+      <!-- search for a city -->
 
-        <div id='search-area'>
-            <form id='search-city'>
-                <!-- input any city here -->
-                <input name='city' type="text" placeholder="Write city of your dream here" id='city' autofocus='true'
-                    class='city-input' />
-                <!-- the submit button -->
-                <button type="submit" id='search-btn' class='btn'>Travel now</button>
-            </form>
+      <div id="search-area">
+        <form id="search-city">
+          <!-- input any city here -->
+          <input
+            name="city"
+            type="text"
+            placeholder="Write city of your dream here"
+            id="city"
+            autofocus="true"
+            class="city-input"
+          />
+          <!-- the submit button -->
+          <button type="submit" id="search-btn" class="btn">Travel now</button>
+        </form>
 
-            <!-- section for city news (and our partners) -->
-            <section id="categoryGrid">
-                <div id="city_1" class="categoryGridArea">
-                    <div class="heading">City 1</div>
-                </div>
-                <div id="city_2" class="categoryGridArea">
-                    <div class="heading">City 2</div>
-                </div>
-                <div id="city_3" class="categoryGridArea">
-                    <div class="heading">City 3</div>
-                </div>
-                <div id="city_4" class="categoryGridArea">
-                    <div class="heading">City 4</div>
-                </div>
-                <div id="city_5" class="categoryGridArea">
-                    <div class="heading">City 5</div>
-                </div>
-            </section>
+        <!-- section for city news (and our partners) -->
+        <section id="categoryGrid">
+          <div id="city_1" class="categoryGridArea">
+            <div class="heading">City 1</div>
+          </div>
+          <div id="city_2" class="categoryGridArea">
+            <div class="heading">City 2</div>
+          </div>
+          <div id="city_3" class="categoryGridArea">
+            <div class="heading">City 3</div>
+          </div>
+          <div id="city_4" class="categoryGridArea">
+            <div class="heading">City 4</div>
+          </div>
+          <div id="city_5" class="categoryGridArea">
+            <div class="heading">City 5</div>
+          </div>
+        </section>
+      </div>
+      <!-- Press button above and get results-->
+      <div class="row">
+        <div class="col1">
+          <div id="map"></div>
+          <div id="city_info"></div>
+          <div id="five-day" class="row spacebetween"></div>
         </div>
-        <!-- Press button above and get results-->
-        <div class="row">
-            <div class="col1">
-                <div id="map"></div>
-                <div id="city_info"></div>
-                <div id='five-day' class='row spacebetween'></div>
-            </div>
-            <!-- "My city choice" button -->
-            <button type="submit" id="add-btn" class="btn">Add</button>
+        <!-- "My city choice" button -->
+        <button type="submit" id="add-btn" class="btn">Add</button>
 
-            <!-- Aside -->
-            <div class="col2">
-                <div class="aside">
-
-                </div>
-            </div>
+        <!-- Aside -->
+        <div class="col2">
+          <div class="aside"></div>
         </div>
-        <!-- Footer -->
-        <div class="footer">
-            <div class="created">
-                <p>created by ... &copy;2023</p>
-            </div>
+      </div>
+      <!-- Footer -->
+      <div class="footer">
+        <div class="created">
+          <p>created by ... &copy;2023</p>
         </div>
+      </div>
     </main>
 
     <!-- Moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
     <script src="assets/js/script.js"></script>
-</body>
-
+  </body>
 </html>
