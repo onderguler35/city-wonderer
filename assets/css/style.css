@@ -54,7 +54,6 @@ body {
 }
 
 .container .earth {
-    width: 360px; 
     height: 360px; 
     overflow: hidden; 
     border-radius: 50%;
