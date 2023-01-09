@@ -7,6 +7,7 @@ const addButton = $("#add-btn");
 const asideContainer = $(".aside");
 const weatherCardWrapper = $("#five-day");
 const dropDownWishList = $(".dropdown-menu");
+const cityNewsSection = $("#categoryGrid");
 const todayDate = moment();
 
 var cityName = "London";
@@ -61,6 +62,7 @@ function getCoordinates(event) {
       }
 
       searchInput.val("");
+      cityNewsSection.addClass('d-none');
       getPOI(lon, lat);
       getWeather(lon, lat);
       cityLatLon = [lat, lon];
