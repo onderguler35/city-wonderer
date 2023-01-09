@@ -1,5 +1,11 @@
 /* Roots */
 
+/* Add variables for main colours */
+:root {
+  --primary_colour: #4d6a3c;
+  --secondary_colour: #e9ddc8;
+  --third_colour: #5a1e26;
+}
 /* Resets */
 *{
     margin: 0;
@@ -181,6 +187,20 @@ header{
     color: white;
     font-size: 25px;
     border-bottom: 19px solid#4d6a3c;
+  }
+
+  .weathersection {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .weather-card {
+    padding: 10px;
+    color: var(--primary_colour);
+    background-color: var(--secondary_colour);
+    border-radius: 5px;
   }
   
  
