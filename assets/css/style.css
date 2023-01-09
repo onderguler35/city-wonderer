@@ -1,11 +1,11 @@
 /* Roots */
+
 /* Add variables for main colours */
 :root {
   --primary_colour: #4d6a3c;
   --secondary_colour: #e9ddc8;
   --third_colour: #5a1e26;
 }
-
 /* Resets */
 *{
     margin: 0;
@@ -15,7 +15,10 @@
 
 html, body {
     height: 100%;
-    width: 100;
+}
+
+body {
+    font-family: "Kanit" !important;
     background-color: #e9c8d3 !important ;
 }
 
@@ -29,40 +32,38 @@ html, body {
 
 .header {
     display: flex;
-    font-size: 25px;
+    font-size: 20px;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
     height: 15%;
     background-color: #4d6a3c;
-    color: white;
+    color: #5a1e26;
     border-color: #1b1816 !important;
-}
-
-h1{
-  color: #e9c8d3 !important;
-  
 }
 
 h2{
     border-top: 5px solid #e9ddc8;
-    padding: 120px 0 20px 0 !important;
+    padding: 100px 0 20px 0 !important;
     margin: 20px !important;
 }
 
-.header{
+h1{
+    color: #e9c8d3 !important;
+}
+header{
     position: fixed;
-    max-height: 12%;
 }
 .header #logo {
-    height: 150px; 
+    width: 96px; 
+    height: 120px; 
     overflow: hidden; 
     /* z-index: 200; */
 }
 
 .btn{
-    background-color: #5a1e26!important  ;
+    background-color: #4d6a3c!important  ;
     border-radius: 10px !important;
     border-color: #4d6a3c !important;
     border-bottom: 2px solid #5a1e26 !important;
@@ -71,32 +72,43 @@ h2{
 
 }
 
+.header #title {
+    font-size: 25px;
+    font-weight: 600;
+    flex-grow: 0.5;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#search-city {
-    width: 3fr;
-    margin: -20px;
+#search-area {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
+#search-city {
+    width: 2fr;
+    margin: -20px;
+}
+
 #search-btn {
     width: 1fr;
+    length: 100px !important;
     font-size: 20px;
     background-color:  #5a1e26;
-    border-radius: 10px;    
+    border-radius: 10px;
+    border-color: #4d6a3c;
+    border-bottom: 8px solid #4d6a3c;
     color: #e9c8d3 !important ;
-    box-shadow: 5px color #4d6a3c;
     padding: 5px 75px;
     margin: 20px;
     position: center;
-    
+    padding-left: 60%;
 }
 
 #city {
@@ -175,6 +187,20 @@ h2{
     color: white;
     font-size: 25px;
     border-bottom: 19px solid#4d6a3c;
+  }
+
+  .weathersection {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+  }
+
+  .weather-card {
+    padding: 10px;
+    color: var(--primary_colour);
+    background-color: var(--secondary_colour);
+    border-radius: 5px;
   }
   
  
