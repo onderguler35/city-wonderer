@@ -1,11 +1,11 @@
 /* Roots */
-
 /* Add variables for main colours */
 :root {
   --primary_colour: #4d6a3c;
   --secondary_colour: #e9ddc8;
   --third_colour: #5a1e26;
 }
+
 /* Resets */
 *{
     margin: 0;
@@ -15,10 +15,7 @@
 
 html, body {
     height: 100%;
-}
-
-body {
-    font-family: "Kanit" !important;
+    width: 100;
     background-color: #e9c8d3 !important ;
 }
 
@@ -32,38 +29,40 @@ body {
 
 .header {
     display: flex;
-    font-size: 20px;
+    font-size: 25px;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
     width: 100%;
     height: 15%;
     background-color: #4d6a3c;
-    color: #5a1e26;
+    color: white;
     border-color: #1b1816 !important;
+}
+
+h1{
+  color: #e9c8d3 !important;
+  
 }
 
 h2{
     border-top: 5px solid #e9ddc8;
-    padding: 100px 0 20px 0 !important;
+    padding: 120px 0 20px 0 !important;
     margin: 20px !important;
 }
 
-h1{
-    color: #e9c8d3 !important;
-}
-header{
+.header{
     position: fixed;
+    max-height: 12%;
 }
 .header #logo {
-    width: 96px; 
-    height: 120px; 
+    height: 150px; 
     overflow: hidden; 
     /* z-index: 200; */
 }
 
 .btn{
-    background-color: #4d6a3c!important  ;
+    background-color: #5a1e26!important  ;
     border-radius: 10px !important;
     border-color: #4d6a3c !important;
     border-bottom: 2px solid #5a1e26 !important;
@@ -72,43 +71,32 @@ header{
 
 }
 
-.header #title {
-    font-size: 25px;
-    font-weight: 600;
-    flex-grow: 0.5;
-}
-
 .container {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#search-area {
+#search-city {
+    width: 3fr;
+    margin: -20px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-#search-city {
-    width: 2fr;
-    margin: -20px;
-}
-
 #search-btn {
     width: 1fr;
-    length: 100px !important;
     font-size: 20px;
     background-color:  #5a1e26;
-    border-radius: 10px;
-    border-color: #4d6a3c;
-    border-bottom: 8px solid #4d6a3c;
+    border-radius: 10px;    
     color: #e9c8d3 !important ;
+    box-shadow: 5px color #4d6a3c;
     padding: 5px 75px;
     margin: 20px;
     position: center;
-    padding-left: 60%;
+    
 }
 
 #city {
@@ -187,20 +175,6 @@ header{
     color: white;
     font-size: 25px;
     border-bottom: 19px solid#4d6a3c;
-  }
-
-  .weathersection {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    margin-top: 15px;
-  }
-
-  .weather-card {
-    padding: 10px;
-    color: var(--primary_colour);
-    background-color: var(--secondary_colour);
-    border-radius: 5px;
   }
   
  
