@@ -243,3 +243,30 @@ h2 {
 }
 
 /* Media Query */
+@media (max-width: 758px) {
+  .col1 {
+    display: grid;
+    grid-template-rows: 700px 200px;
+    grid-template-columns: 6fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+    grid-template-areas:
+      "map map map map"
+      "weather weather weather weather"
+      "aside aside";
+  }
+  .col2 {
+    grid-area: aside;
+    margin: 50px;
+  }
+  .aside {
+    margin-top: 50px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-weight: bold;
+    text-decoration: none;
+    column-gap: 0.5rem;
+  }
+}
