@@ -154,7 +154,7 @@ function displayForecastWeather(forecastData) {
   //then display the last available forecase for that day
   if (numNoonForecast <= 4) {
     forecastMoment = moment.unix(lastForecastObj.dt);
-    
+
     weatherCardWrapper.append(`
     <div class="weather-card">
       <h5>${forecastMoment.format("ddd, DD MMM")}</h3>
@@ -187,7 +187,6 @@ function populatePOIAside(poiArray) {
 }
 
 function renderMap(lon, lat) {
-
   //Clear map if it needs to display further results
   if (map != null) {
     map.remove();
@@ -217,9 +216,26 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3> <a href=\'https://www.wikidata.org/wiki/${wikidataID}\' target="_blank">Visit Wikidata page.</a> <br> <button onclick="addPoiToLocalStorage('${poiTitle}')">Click</button>`
+        `<h3>${poiTitle}</h3>  <button onclick="addPoiToLocalStorage('${poiTitle}')">Add my my wish list.</button>`
       );
   }
+}
+
+//Remove POI from local storage, if no POI's left, city gets removed too.
+function removeFromLocalStorage(poiName) {
+  let wishList = JSON.parse(localStorage.getItem("wishlist"));
+
+  for (const city in wishList) {
+    const index = wishList[city].indexOf(poiName);
+    if (index > -1) {
+      wishList[city].splice(index, 1);
+    }
+
+    if (wishList[city].length === 0) delete wishList[city];
+  }
+
+  localStorage.setItem("wishlist", JSON.stringify(wishList));
+  populateWishListDropDown();
 }
 
 //Save poi and city to local storage.
@@ -247,10 +263,11 @@ function populateWishListDropDown() {
       const cityPoiList = citiesWishList[city];
       let poisMarkup = "";
       cityPoiList.forEach((poi) => {
-        poisMarkup += `<li>${poi}</li>`;
+        poisMarkup += `<li id='${poi}'>${poi} <button onclick='removeFromLocalStorage("${poi}")'>remove</button></li>`;
       });
 
       dropDownWishList.prepend(`
+      <div id='${city}' >
         <button>${city}</button>
         <ul class="dropdown-item" ">${poisMarkup}</ul>
       `);
