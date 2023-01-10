@@ -24,52 +24,33 @@ function init() {
   $("#search-city").on("submit", function (event) {
     cityName = searchInput.val();
     event.preventDefault();
-    getCoordinates(event);
-  });
-
-  addButton.on("click", function (event) {
-    addPoiToLocalStorage(cityName, poiName);
-  });
-
-  //Capture the click of the wishlist buttons from the drop-down
-  dropDownWishList.on("click", function (e) {
-    getCoordinates(e);
+    getCoordinates(cityName);
   });
 
   populateWishListDropDown();
 }
 
 //Get coordinates for the searched for place using OpenTrip API
-function getCoordinates(event) {
-  var placeName = "";
-  //Check the trigger - search button or wishlist button and get the town name
-  if (event.type == "submit") {
-    placeName = searchInput.val();
-  } else if (event.type == "click") {
-    placeName = event.target.innerText;
-  }
-
+function getCoordinates(cityName) {
   //Check if there is a town name provided, request the data from the API and call functions to display it
-  if (placeName) {
+  if (cityName) {
     var lon = "";
     var lat = "";
 
-    var url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${placeName}&apikey=${openMapAPIKey}`;
+    var url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (coorData) {
       if (coorData.status === "OK") {
         lon = coorData.lon;
         lat = coorData.lat;
+
+        searchInput.val("");
+        cityNewsSection.addClass("d-none");
+        resultsSection.removeClass("d-none");
+        getPOI(lon, lat);
+        getWeather(lon, lat);
+        renderMap(lon, lat);
       }
-
-      searchInput.val("");
-      cityNewsSection.addClass('d-none');
-      resultsSection.removeClass('d-none');
-      getPOI(lon, lat);
-      getWeather(lon, lat);
-      renderMap(lon, lat);
-      cityLatLon = [lat, lon];
-
     });
   }
 }
@@ -80,12 +61,9 @@ function getPOI(lon, lat) {
     var url = `https://api.opentripmap.com/0.1/en/places/radius?radius=${openMapRadius}&lon=${lon}&lat=${lat}&kinds=${openMapKinds}&limit=${openMapLimit}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (poiData) {
-      
       var poiArray = [];
-      
-      if (poiData.features.length > 0) {
-        
 
+      if (poiData.features.length > 0) {
         for (var poi of poiData.features) {
           poiArray.push({
             lon: poi.geometry.coordinates[0],
@@ -176,9 +154,9 @@ function populatePOIAside(poiArray) {
   $(".city-link").remove();
 
   for (var poi of poiArray) {
-    poiName = poi.name
+    poiName = poi.name;
     if (poiName.length > 40) {
-      poiName = poiName.substring(0,37) + "...";
+      poiName = poiName.substring(0, 37) + "...";
     }
     asideContainer.append(`
     <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
@@ -211,12 +189,11 @@ function addMarkersToMap(POIs) {
     const lat = poi.geometry.coordinates[1];
     const lon = poi.geometry.coordinates[0];
     const poiTitle = poi.properties.name;
-    const wikidataID = poi.properties.wikidata;
 
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button onclick="addPoiToLocalStorage('${poiTitle}')">Add my my wish list.</button>`
+        `<h3>${poiTitle}</h3>  <button onclick="addPoiToLocalStorage('${poiTitle}')">Add to wishlist.</button>`
       );
   }
 }
@@ -263,12 +240,12 @@ function populateWishListDropDown() {
       const cityPoiList = citiesWishList[city];
       let poisMarkup = "";
       cityPoiList.forEach((poi) => {
-        poisMarkup += `<li id='${poi}'>${poi} <button onclick='removeFromLocalStorage("${poi}")'>remove</button></li>`;
+        poisMarkup += `<li id='${poi}'>${poi} <button onclick='removeFromLocalStorage("${poi}")'>&#10006;</button></li>`;
       });
 
       dropDownWishList.prepend(`
-      <div id='${city}' >
-        <button>${city}</button>
+      <div class="wishlist" id='${city}' >
+        <button onclick='getCoordinates("${city}")'>${city}</button>
         <ul class="dropdown-item" ">${poisMarkup}</ul>
       `);
     }
