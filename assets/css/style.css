@@ -131,6 +131,10 @@ h2 {
   column-gap: 0.5rem;
 }
 
+.city-link{
+  color: var(--primary_colour);
+}
+
 #five-day {
   grid-area: weather;
 }
