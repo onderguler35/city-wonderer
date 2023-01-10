@@ -105,7 +105,7 @@ h2 {
 
 .col1 {
   display: grid;
-  grid-template-rows: 800px 200px;
+  grid-template-rows: 700px 200px;
   grid-template-columns: 6fr 1fr;
   gap: 30px;
   grid-template-areas:
