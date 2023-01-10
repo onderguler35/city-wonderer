@@ -7,105 +7,100 @@
 }
 
 /* Resets */
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-html, body {
-    height: 100%;
-    width: 100;
-    background-color: #e9c8d3 !important ;
+html,
+body {
+  height: 100%;
+  width: 100%;
+  background-color: #e9c8d3 !important ;
 }
 
 /* Global Classes */
 
 .hide {
-    display: none;
+  display: none;
 }
 
 /* Custom style */
 
 .header {
-    display: flex;
-    font-size: 25px;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
-    height: 15%;
-    background-color: #4d6a3c;
-    color: white;
-    border-color: #1b1816 !important;
+  display: flex;
+  font-size: 25px;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 100%;
+  height: 15%;
+  background-color: #4d6a3c;
+  color: white;
+  border-color: #1b1816 !important;
 }
 
-h1{
+h1 {
   color: #e9c8d3 !important;
-  
 }
 
-h2{
+h2 {
   margin: 20px !important;
 }
 
-.header{
-    position: top fixed;
-    max-height: 12%;
+.header {
+  position: top fixed;
+  max-height: 12%;
 }
 .header #logo {
-    height: 150px; 
-    overflow: hidden; 
-    /* z-index: 200; */
+  height: 150px;
+  overflow: hidden;
+  /* z-index: 200; */
 }
 
-.btn{
-    background-color: #5a1e26!important  ;
-    border-radius: 10px !important;
-    border-color: #4d6a3c !important;
-    border-bottom: 2px solid #5a1e26 !important;
-    border-bottom: 4px solid #5a1e26 !important;
-    color: #e9c8d3 !important;
-
+.btn {
+  background-color: #5a1e26 !important  ;
+  border-radius: 10px !important;
+  border-color: #4d6a3c !important;
+  border-bottom: 2px solid #5a1e26 !important;
+  border-bottom: 4px solid #5a1e26 !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #search-city {
-    width: 3fr;
-    margin: -20px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 #search-btn {
-    width: 1fr;
-    font-size: 20px;
-    background-color:  #5a1e26;
-    border-radius: 10px;    
-    color: #e9c8d3 !important ;
-    box-shadow: 5px color #4d6a3c;
-    padding: 5px 75px;
-    margin: 20px;
-    position: center;
-    
+  font-size: 20px;
+  background-color: #5a1e26;
+  border-radius: 10px;
+  color: rgb(255, 255, 255) !important ;
+  box-shadow: 5px color #4d6a3c;
+  padding: 5px 75px;
+  margin: 20px;
+  position: center;
 }
 
 #city {
-    font-size: 20px;
-    width: 100%;
-    border-radius: 5px;
-    border: 2px solid black;
-    height: 50px;
-    padding-bottom: 5px;
-    padding-top: 0px;
-    padding-left: 5px;
+  font-size: 20px;
+  width: 100%;
+  border-radius: 5px;
+  border: 2px solid black;
+  height: 50px;
+  padding-bottom: 5px;
+  padding-top: 0px;
+  padding-left: 5px;
 }
 
 .col1 {
@@ -125,15 +120,15 @@ h2{
 }
 .col2 {
   grid-area: aside;
-  justify-content: space-around;
-  align-items: center;
-  margin-top: 40px;
+  margin-top: 50px;  
 }
 
 .aside {
   display: flex;
   flex-direction: column;
-  justify-content: end;
+  font-weight: bold;
+  text-decoration: none;
+  column-gap: 0.5rem;
 }
 
 #five-day {
@@ -143,8 +138,8 @@ h2{
 .weathersection {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 15px;
-  margin-top: 25px;
+  margin-top: 50px;
+  gap: 20px;
 }
 
 .weather-card {
@@ -159,105 +154,88 @@ h2{
   margin-top: 50px;
 }
 
-.weathersection {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    margin-top: 15px;
-}
+/* Category Grid CSS */
 
-  .weather-card {
-    padding: 10px;
-    color: var(--primary_colour);
-    background-color: var(--secondary_colour);
-    border-radius: 5px;
-}
-
-  /* Category Grid CSS */
-
-  #categoryGrid {
-    margin: 0px 5%;
-    display: grid;
-    grid-template-rows: 400px 400px 400px;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-template-areas:
+#categoryGrid {
+  margin: 0px 5%;
+  display: grid;
+  grid-template-rows: 400px 400px 400px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
     "London London London"
     "Madrid Madrid Paris"
     "Amsterdam Amsterdam Berlin";
-  }
-  
-  #London {
-    border-top: 9px solid #e9ddc8;
-    grid-area: London;
-    background-image: url("../images/london.jpg");
-  
-  }
-  #Madrid{
-    border-top: 9px solid #e9ddc8;
-    grid-area: Madrid;
-    background-image: url("../images/madrid.jpg");
-  }
-  
-  #Paris {
-    border-top: 9px solid #e9ddc8;
-    grid-area: Paris;
-    background-image: url("../images/paris.jpg");
-  }
-  
-  #Amsterdam {
-    border-top: 9px solid #e9ddc8;
-    grid-area: Amsterdam;
-    background-image: url("../images/amsterdam.jpg");
-  }
-  
-  #Berlin {
-    border-top: 9px solid #e9ddc8;
-    grid-area: Berlin;
-    background-image: url("../images/berlin.jpg");
-  }
-  
-  .categoryGridArea {
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin: 5px;
-    cursor: pointer;
+}
+
+#London {
+  border-top: 9px solid #e9ddc8;
+  grid-area: London;
+  background-image: url("../images/london.jpg");
+}
+#Madrid {
+  border-top: 9px solid #e9ddc8;
+  grid-area: Madrid;
+  background-image: url("../images/madrid.jpg");
+}
+
+#Paris {
+  border-top: 9px solid #e9ddc8;
+  grid-area: Paris;
+  background-image: url("../images/paris.jpg");
+}
+
+#Amsterdam {
+  border-top: 9px solid #e9ddc8;
+  grid-area: Amsterdam;
+  background-image: url("../images/amsterdam.jpg");
+}
+
+#Berlin {
+  border-top: 9px solid #e9ddc8;
+  grid-area: Berlin;
+  background-image: url("../images/berlin.jpg");
+}
+
+.categoryGridArea {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 5px;
+  cursor: pointer;
+  display: grid;
+  align-content: end;
+}
+
+.heading {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 35px;
+  height: 25px;
+  color: white;
+  font-size: 25px;
+  border-bottom: 19px solid#4d6a3c;
+}
+
+@media screen and (max-width: 600px) {
+  #categoryGrid {
+    margin: 0px 5%;
     display: grid;
-    align-content: end;
-  }
-  
-  .heading {
-    background-color: rgba(0,0,0,0.7);
-    padding: 35px;
-    height: 25px;
-    color: white;
-    font-size: 25px;
-    border-bottom: 19px solid#4d6a3c;
-  }
-  
- 
-  @media screen and (max-width:600px) {
- 
-    #categoryGrid {
-      margin: 0px 5%;
-      display: grid;
-      grid-template-rows: 500px 500px 500px 500px 800px;
-      grid-template-columns: 1fr;
-      grid-template-areas: 
+    grid-template-rows: 500px 500px 500px 500px 800px;
+    grid-template-columns: 1fr;
+    grid-template-areas:
       "London"
       "Madrid"
       "Paris"
       "Amsterdam"
       "Berlin";
-    }
   }
+}
 
 /* Footer */
-.footer{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 3%;
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 3%;
 }
 
 /* Media Query */
