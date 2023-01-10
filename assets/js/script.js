@@ -8,11 +8,12 @@ const asideContainer = $(".aside");
 const weatherCardWrapper = $("#five-day");
 const dropDownWishList = $(".dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
+const resultsSection = $("#results-section");
 const todayDate = moment();
 
 var cityName = "London";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
-var openMapLimit = "15";
+var openMapLimit = "25";
 var openMapRadius = "1000"; //meters
 var map;
 
@@ -63,6 +64,7 @@ function getCoordinates(event) {
 
       searchInput.val("");
       cityNewsSection.addClass('d-none');
+      resultsSection.removeClass('d-none');
       getPOI(lon, lat);
       getWeather(lon, lat);
       cityLatLon = [lat, lon];
@@ -73,7 +75,7 @@ function getCoordinates(event) {
 //Get Points Of Interest for the given coordinates
 function getPOI(lon, lat) {
   if (lon !== "" && lat !== "") {
-    var url = `https://api.opentripmap.com/0.1/en/places/radius?radius=${openMapRadius}&lon=${lon}&lat=${lat}&kinds=${openMapKinds}&limit=10&apikey=${openMapAPIKey}`;
+    var url = `https://api.opentripmap.com/0.1/en/places/radius?radius=${openMapRadius}&lon=${lon}&lat=${lat}&kinds=${openMapKinds}&limit=${openMapLimit}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (poiData) {
       if (poiData.features.length > 0) {
