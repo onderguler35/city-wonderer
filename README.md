@@ -4,19 +4,19 @@ Our first project as a group. Quite exciting!
 
 ## Our Team (Group 4)
 
-Kamen Ivanov
-Pavel Naumovic
-Onder Guler
-Iryna Lototska
+Kamen Ivanov;
+Pavel Naumovic;
+Onder Guler;
+Iryna Lototska;
 Desmond Ieong (Hok Man)
 
 ## An application that returns information about the map and weather of different cities including the cities’ popular places and landmarks.
 
 ### What problem does this application solve? (User Story)
 
-```
-As an user or a frequent traveller, I want the website to be able to find the map and weather for the next 5 days of any city. The website should also be capable of adding any city or point of interests to the wish-list for future reference.  Ideally, the user can also find useful and latest news and information about the city.
-```
+As an user or a frequent traveller, I want the website to be able to find the map and weather for the next 5 days of any city.
+The website should also be capable of adding any city or point of interests to the wish-list for future reference.  
+Ideally, the user can also find useful and latest news and information about the city.
 
 ### The structure (Acceptance Criteria)
 
@@ -48,7 +48,7 @@ As an user or a frequent traveller, I want the website to be able to find the ma
 
 The following image shows the web application's appearance and functionality:
 
-1. Overall appearance of our landing page.
+1. Overall appearance of our landing page with css grid to display news
 
 ![Alt text](assets/images/dumpscreen%20-%20welcome%20page.jpg)
 
@@ -62,6 +62,18 @@ The following image shows the web application's appearance and functionality:
 
 4. Webpages returns point of interests of any city
 
+![Alt text](assets/images/dumpscreen%20-%20poi%20side%20bar.jpg)
+
+5. Header wish-list dropdown and remove button
+
+![Alt text](assets/images/dumpscreen%20-%20dropdown%20wishlist.jpg)
+
 ![The City Wonderer includes a header with dropdown, a searching input, buttons for getting result, area for news and aside, map and weather cards with text, icons. ](assets/page.png)
+
+### Future Development
+
+- Options for the user to choose / confirm between two cities with identical names in different countries and revealed in the map;
+- Youtube API to embed influencers’ travel videos about the city;
+- More API and partners to pull in latest news and information about the city;
 
 ### Resources
