@@ -67,7 +67,9 @@ function getCoordinates(event) {
       resultsSection.removeClass('d-none');
       getPOI(lon, lat);
       getWeather(lon, lat);
+      renderMap(lon, lat);
       cityLatLon = [lat, lon];
+
     });
   }
 }
@@ -78,8 +80,11 @@ function getPOI(lon, lat) {
     var url = `https://api.opentripmap.com/0.1/en/places/radius?radius=${openMapRadius}&lon=${lon}&lat=${lat}&kinds=${openMapKinds}&limit=${openMapLimit}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (poiData) {
+      
+      var poiArray = [];
+      
       if (poiData.features.length > 0) {
-        var poiArray = [];
+        
 
         for (var poi of poiData.features) {
           poiArray.push({
@@ -90,11 +95,11 @@ function getPOI(lon, lat) {
           });
         }
 
-        renderMap(lon, lat);
         addMarkersToMap(poiData.features);
         populatePOIAside(poiArray);
       } else {
-        console.log("no results");
+        //No POI results scenario. Send an empty array to clear any previous POIs
+        populatePOIAside(poiArray);
       }
     });
   }
@@ -171,8 +176,12 @@ function populatePOIAside(poiArray) {
   $(".city-link").remove();
 
   for (var poi of poiArray) {
+    poiName = poi.name
+    if (poiName.length > 40) {
+      poiName = poiName.substring(0,37) + "...";
+    }
     asideContainer.append(`
-    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poi.name}</a>
+    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
     `);
   }
 }
