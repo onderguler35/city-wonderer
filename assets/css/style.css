@@ -193,12 +193,8 @@ h2 {
 
 #map {
   grid-area: map;
-  /* margin-top: 50px;   */
 }
-/* .col2 {
-  grid-area: aside;
-  margin-top: 50px;  
-} */
+
 
 .aside {
   grid-area: aside;
