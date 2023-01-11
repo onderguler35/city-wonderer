@@ -287,10 +287,6 @@ h2 {
   border-bottom: 19px solid#4d6a3c;
 }
 
-.dropdown-menu {
-  background-color: var(--secondary_colour) !important;
-}
-
 .dropdown-btn {
   font-size: 15px;
   background-color: #5a1e26;
