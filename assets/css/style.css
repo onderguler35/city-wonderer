@@ -264,7 +264,7 @@ h2 {
 
   .col1 {
     display: grid;
-    grid-template-rows: 700px 500px 300px;
+    grid-template-rows: 700px 500px 700px;
     grid-template-columns: 1fr;
     margin-bottom: 20px;
     grid-template-areas:
