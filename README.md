@@ -14,9 +14,9 @@ Desmond Ieong (Hok Man)
 
 ### What problem does this application solve? (User Story)
 
-As an user or a frequent traveller, I want the website to be able to find the map and weather for the next 5 days of any city.
-The website should also be capable of adding any city or point of interests to the wish-list for future reference.  
-Ideally, the user can also find useful and latest news and information about the city.
+As a frequent traveller, I want the website to be able to find the map, weather for the next 5 days and popular destinations for any city that I would like to visit.
+As a frequent traveller, I want to be able to add any city or point of interests to a wishlist for future reference.
+As a frequent traveller, I want to see some suggestions for popular destinations on the welcome page
 
 ### The structure (Acceptance Criteria)
 
