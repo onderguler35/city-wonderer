@@ -36,7 +36,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 25% !important;
+  height: fit-content;
   background-color: #4d6a3c;
   color: white;
   border-color: #1b1816 !important;
