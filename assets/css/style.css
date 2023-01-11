@@ -268,12 +268,6 @@ h2 {
   background-image: url("../images/berlin.jpg");
 }
 
-#City1, #City2, #City3, #City4, #City5 {
-  text-decoration: none;
-  font-family: "Raleway", sans-serif !important;
-  font-weight: 600 !important;
-}
-
 .categoryGridArea {
   background-position: center;
   background-size: cover;
