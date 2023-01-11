@@ -13,7 +13,7 @@ const todayDate = moment();
 
 var cityName = "";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
-var openMapLimit = "25";
+var openMapLimit = "23";
 var openMapRadius = "1000"; //meters
 var map;
 
@@ -166,6 +166,7 @@ function populatePOIAside(poiArray) {
     <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
     `);
   }
+  asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
 }
 
 function renderMap(lon, lat) {
