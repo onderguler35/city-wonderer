@@ -111,7 +111,7 @@ h2 {
 .col1 {
   display: grid;
   grid-template-rows: 700px 200px;
-  grid-template-columns: 6fr 1fr;
+  grid-template-columns: 4fr 1fr;
   gap: 30px;
   margin-bottom: 30px;
   grid-template-areas:
@@ -121,14 +121,15 @@ h2 {
 
 #map {
   grid-area: map;
-  margin-top: 50px;  
+  /* margin-top: 50px;   */
 }
-.col2 {
+/* .col2 {
   grid-area: aside;
   margin-top: 50px;  
-}
+} */
 
 .aside {
+  grid-area: aside;
   display: flex;
   flex-direction: column;
   font-weight: bold;
@@ -170,30 +171,30 @@ h2 {
     "Amsterdam Amsterdam Berlin";
 }
 
-#London {
+#City1 {
   border-top: 9px solid #e9ddc8;
   grid-area: London;
   background-image: url("../images/london.jpg");
 }
-#Madrid {
+#City2 {
   border-top: 9px solid #e9ddc8;
   grid-area: Madrid;
   background-image: url("../images/madrid.jpg");
 }
 
-#Paris {
+#City3 {
   border-top: 9px solid #e9ddc8;
   grid-area: Paris;
   background-image: url("../images/paris.jpg");
 }
 
-#Amsterdam {
+#City4 {
   border-top: 9px solid #e9ddc8;
   grid-area: Amsterdam;
   background-image: url("../images/amsterdam.jpg");
 }
 
-#Berlin {
+#City5 {
   border-top: 9px solid #e9ddc8;
   grid-area: Berlin;
   background-image: url("../images/berlin.jpg");
@@ -216,6 +217,19 @@ h2 {
   color: white;
   font-size: 25px;
   border-bottom: 19px solid#4d6a3c;
+}
+
+.dropdown-menu {
+  background-color: var(--secondary_colour) !important;
+}
+
+.dropdown-btn {
+  font-size: 15px;
+  background-color: #5a1e26;
+  border-radius: 10px;
+  color: rgb(255, 255, 255) !important ;
+  box-shadow: 5px color #4d6a3c;
+  padding: 1px 5px;
 }
 
 /* Footer */
@@ -250,7 +264,7 @@ h2 {
 
   .col1 {
     display: grid;
-    grid-template-rows: 700px 150px 300px;
+    grid-template-rows: 700px 500px 700px;
     grid-template-columns: 1fr;
     margin-bottom: 20px;
     grid-template-areas:
