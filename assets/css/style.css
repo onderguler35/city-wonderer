@@ -209,7 +209,6 @@ h2 {
   grid-area: map;
 }
 
-
 .aside {
   grid-area: aside;
   display: flex;
