@@ -176,7 +176,7 @@ function renderMap(lon, lat) {
   }
 
   mapZoomLocation = [lat, lon];
-  zoomLevel = 14; // Higher number = larger zoom.
+  zoomLevel = 15; // Higher number = larger zoom.
   map = L.map("map").setView(mapZoomLocation, zoomLevel);
 
   L.tileLayer(
