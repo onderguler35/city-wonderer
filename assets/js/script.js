@@ -6,12 +6,12 @@ const searchInput = $("#city");
 const addButton = $("#add-btn");
 const asideContainer = $(".aside");
 const weatherCardWrapper = $("#five-day");
-const dropDownWishList = $(".dropdown-menu");
+const dropDownWishList = $("#dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
 const todayDate = moment();
 
-var cityName = "London";
+var cityName = "";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = "23";
 var openMapRadius = "1000"; //meters
@@ -22,54 +22,34 @@ init();
 //Capture input data and pass it to next function
 function init() {
   $("#search-city").on("submit", function (event) {
-    cityName = searchInput.val();
     event.preventDefault();
-    getCoordinates(event);
+    cityName = searchInput.val();
+    getCoordinates(cityName);
   });
-
-  addButton.on("click", function (event) {
-    addPoiToLocalStorage(cityName, poiName);
-  });
-
-  //Capture the click of the wishlist buttons from the drop-down
-  dropDownWishList.on("click", function (e) {
-    getCoordinates(e);
-  });
-
   populateWishListDropDown();
 }
 
 //Get coordinates for the searched for place using OpenTrip API
-function getCoordinates(event) {
-  var placeName = "";
-  //Check the trigger - search button or wishlist button and get the town name
-  if (event.type == "submit") {
-    placeName = searchInput.val();
-  } else if (event.type == "click") {
-    placeName = event.target.innerText;
-  }
-
+function getCoordinates(cityName) {
   //Check if there is a town name provided, request the data from the API and call functions to display it
-  if (placeName) {
+  if (cityName) {
     var lon = "";
     var lat = "";
 
-    var url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${placeName}&apikey=${openMapAPIKey}`;
+    var url = `https://api.opentripmap.com/0.1/en/places/geoname?name=${cityName}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (coorData) {
       if (coorData.status === "OK") {
         lon = coorData.lon;
         lat = coorData.lat;
+
+        searchInput.val("");
+        cityNewsSection.addClass("d-none");
+        resultsSection.removeClass("d-none");
+        getPOI(lon, lat);
+        getWeather(lon, lat);
+        renderMap(lon, lat);
       }
-
-      searchInput.val("");
-      cityNewsSection.addClass('d-none');
-      resultsSection.removeClass('d-none');
-      getPOI(lon, lat);
-      getWeather(lon, lat);
-      renderMap(lon, lat);
-      cityLatLon = [lat, lon];
-
     });
   }
 }
@@ -80,12 +60,9 @@ function getPOI(lon, lat) {
     var url = `https://api.opentripmap.com/0.1/en/places/radius?radius=${openMapRadius}&lon=${lon}&lat=${lat}&kinds=${openMapKinds}&limit=${openMapLimit}&apikey=${openMapAPIKey}`;
 
     $.get(url).then(function (poiData) {
-      
       var poiArray = [];
-      
-      if (poiData.features.length > 0) {
-        
 
+      if (poiData.features.length > 0) {
         for (var poi of poiData.features) {
           poiArray.push({
             lon: poi.geometry.coordinates[0],
@@ -103,6 +80,11 @@ function getPOI(lon, lat) {
       }
     });
   }
+}
+
+function setPoiCategory(poiCategory) {
+  openMapKinds = poiCategory;
+  getCoordinates(cityName);
 }
 
 //Get 5 day forecast for the given coordinates
@@ -176,9 +158,9 @@ function populatePOIAside(poiArray) {
   $(".city-link").remove();
 
   for (var poi of poiArray) {
-    poiName = poi.name
+    poiName = poi.name;
     if (poiName.length > 40) {
-      poiName = poiName.substring(0,37) + "...";
+      poiName = poiName.substring(0, 37) + "...";
     }
     asideContainer.append(`
     <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
@@ -212,12 +194,11 @@ function addMarkersToMap(POIs) {
     const lat = poi.geometry.coordinates[1];
     const lon = poi.geometry.coordinates[0];
     const poiTitle = poi.properties.name;
-    const wikidataID = poi.properties.wikidata;
 
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button class="dropdown-btn" onclick="addPoiToLocalStorage('${poiTitle}')">Add my wish list</button>`
+        `<h3>${poiTitle}</h3><button onclick="addPoiToLocalStorage('${poiTitle}')">Add to wishlist.</button>`
       );
   }
 }
@@ -264,13 +245,19 @@ function populateWishListDropDown() {
       const cityPoiList = citiesWishList[city];
       let poisMarkup = "";
       cityPoiList.forEach((poi) => {
-        poisMarkup += `<li id='${poi}'>${poi} <button class="dropdown-btn" onclick='removeFromLocalStorage("${poi}")'>remove</button></li>`;
+        poisMarkup += 
+        `<li class="poi-li" id='${poi}'>
+          ${poi}
+          <button class="remove-poi-btn" onclick='removeFromLocalStorage("${poi}")'>&#10005</button>
+         </li>`;
       });
 
       dropDownWishList.prepend(`
-      <div id='${city}' >
-        <button class="dropdown-btn">${city}</button>
+      <div class="wishlist" id='${city}' >
+        <button onclick='getCoordinates("${city}")'>${city}</button>
+        <hr>
         <ul class="dropdown-item" ">${poisMarkup}</ul>
+      </div>
       `);
     }
   }

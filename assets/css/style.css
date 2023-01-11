@@ -18,6 +18,7 @@ body {
   height: 100%;
   width: 100%;
   background-color: #e9c8d3 !important ;
+  font-family: "Raleway", sans-serif !important;
 }
 
 /* Global Classes */
@@ -51,12 +52,75 @@ h2 {
 
 .header {
   position: top fixed;
-  max-height: 12%;
+  height: fit-content;
 }
 .header #logo {
-  height: 150px;
+  height: 6em;
   overflow: hidden;
   /* z-index: 200; */
+}
+
+#slogan {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 1rem;
+  text-align: right;
+}
+
+.dropdown-menu {
+  transform: translate3d(-130px, 46px, 0px) !important;
+  background-color: rgba(255, 255, 255, 0.695) !important ;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.dropdown button {
+  font-size: 1.2rem !important;
+}
+
+.wishlist button {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+  text-transform: capitalize;
+  font-weight: 800;
+}
+
+.wishlist button:hover {
+  background-color: #4d6a3c43;
+}
+
+.wishlist hr {
+  margin: 0 auto;
+  width: 80% !important;
+  border-color: black;
+}
+
+.wishlist ul {
+  list-style: none;
+  font-size: 1rem;
+}
+
+.wishlist ul:hover {
+  background-color: inherit;
+}
+
+.wishlist li {
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.remove-poi-btn {
+  border: 1px solid rgba(0, 0, 255, 0.534);
+  background-color: transparent;
+  color: rgba(0, 0, 255, 0.527);
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  border-radius: 50%;
+  font-size: 1rem;
 }
 
 .btn {
@@ -68,6 +132,12 @@ h2 {
   color: rgb(255, 255, 255) !important;
 }
 
+.welcome h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 10px;
+}
+
 .container-1 {
   display: flex;
   flex-direction: column;
@@ -75,8 +145,12 @@ h2 {
 }
 
 .container-2 {
-    width: 95%;
-    margin: 0 auto;
+  width: 95%;
+  margin: 0 auto;
+}
+
+#poi-categories-wrapper {
+  margin-right: 1em;
 }
 
 #search-city {
@@ -101,10 +175,8 @@ h2 {
   font-size: 20px;
   width: 100%;
   border-radius: 5px;
-  border: 2px solid black;
+  border: 1px solid black;
   height: 50px;
-  padding-bottom: 5px;
-  padding-top: 0px;
   padding-left: 5px;
 }
 
@@ -121,12 +193,8 @@ h2 {
 
 #map {
   grid-area: map;
-  /* margin-top: 50px;   */
 }
-/* .col2 {
-  grid-area: aside;
-  margin-top: 50px;  
-} */
+
 
 .aside {
   grid-area: aside;
@@ -137,7 +205,7 @@ h2 {
   column-gap: 0.5rem;
 }
 
-.city-link{
+.city-link {
   color: var(--primary_colour);
 }
 
@@ -271,5 +339,78 @@ h2 {
       "map"
       "weather"
       "aside";
+  }
+}
+
+/* Animation */
+
+.rubberBand {
+  -webkit-animation-name: rubberBand;
+  animation-name: rubberBand;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  animation-iteration-count: 2;
+}
+
+@-webkit-keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+@keyframes rubberBand {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    -webkit-transform: scale3d(1.15, 0.85, 1);
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
 }
