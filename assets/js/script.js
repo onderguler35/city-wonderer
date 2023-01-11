@@ -22,11 +22,10 @@ init();
 //Capture input data and pass it to next function
 function init() {
   $("#search-city").on("submit", function (event) {
-    cityName = searchInput.val();
     event.preventDefault();
+    cityName = searchInput.val();
     getCoordinates(cityName);
   });
-
   populateWishListDropDown();
 }
 
@@ -85,6 +84,7 @@ function getPOI(lon, lat) {
 
 function setPoiCategory(poiCategory) {
   openMapKinds = poiCategory;
+  getCoordinates(cityName);
 }
 
 //Get 5 day forecast for the given coordinates
@@ -197,7 +197,7 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button onclick="addPoiToLocalStorage('${poiTitle}')">Add to wishlist.</button>`
+        `<h3>${poiTitle}</h3><button onclick="addPoiToLocalStorage('${poiTitle}')">Add to my wishlist.</button>`
       );
   }
 }
@@ -244,13 +244,19 @@ function populateWishListDropDown() {
       const cityPoiList = citiesWishList[city];
       let poisMarkup = "";
       cityPoiList.forEach((poi) => {
-        poisMarkup += `<li id='${poi}'>${poi} <button onclick='removeFromLocalStorage("${poi}")'>&#10006;</button></li>`;
+        poisMarkup += 
+        `<li class="poi-li" id='${poi}'>
+          ${poi}
+          <button class="remove-poi-btn" onclick='removeFromLocalStorage("${poi}")'>&#10005</button>
+         </li>`;
       });
 
       dropDownWishList.prepend(`
       <div class="wishlist" id='${city}' >
         <button onclick='getCoordinates("${city}")'>${city}</button>
+        <hr>
         <ul class="dropdown-item" ">${poisMarkup}</ul>
+      </div>
       `);
     }
   }
