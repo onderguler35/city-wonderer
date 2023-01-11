@@ -11,7 +11,7 @@ const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
 const todayDate = moment();
 
-var cityName = "London";
+var cityName = "";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = "25";
 var openMapRadius = "1000"; //meters
@@ -197,7 +197,7 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3><button onclick="addPoiToLocalStorage('${poiTitle}')">Add to my wishlist.</button>`
+        `<h3>${poiTitle}</h3><button onclick="addPoiToLocalStorage('${poiTitle}')">Add to wishlist.</button>`
       );
   }
 }
