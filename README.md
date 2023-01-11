@@ -14,22 +14,24 @@ Desmond Ieong (Hok Man)
 
 ### What problem does this application solve? (User Story)
 
-As an user or a frequent traveller, I want the website to be able to find the map and weather for the next 5 days of any city.
-The website should also be capable of adding any city or point of interests to the wish-list for future reference.  
-Ideally, the user can also find useful and latest news and information about the city.
+As a frequent traveller, I want the website to be able to find the map, weather for the next 5 days and popular destinations for any city that I would like to visit.
+As a frequent traveller, I want to be able to add any city or point of interests to a wishlist for future reference.
+As a frequent traveller, I want to see some suggestions for popular destinations on the welcome page
 
 ### The structure (Acceptance Criteria)
 
 - The City Wonderer webpage includes a header with a dropdown wish-list;
 - The webpage includes a search bar;
 - The webpage has its custom designed logo;
+- The user can select different categories of point of interests that they are interested;
 - The user can type in the search bar and press on the search button to get results of a map and weather for the next 5 days of any city;
-- The webpage includes styling in Bootstrap as well as custom CSS;
+- The webpage includes styling in Bootstrap v4.6 as well as custom CSS;
 - CSS display grid is essential for displaying the map, the weather information and point of interest of any city;
-- The webpage collects its data from two open source API: OpenMap and OpenWeather by JQuery;
+- The webpage uses Opensource map embedded (leafletjs.com) to display the city map and points of interest;
+- The webpage fetches data using JQuery from two open source APIs: OpenTripMap and OpenWeather;
 - The webpage includes JavaScript functions to render point of interests of a city on the map as well as in the side bar on the right;
 - The webpage’s HTML follows a logical structure with semantic elements throughout the code; and
-- The webpage includes a responsiveness and ‘Mobile’ first design and user interface by Media Query in CSS stylesheet.
+- The webpage is made responsive using Media Query in CSS stylesheet.
 
 ### What have we learnt by creating this application?
 
@@ -56,24 +58,28 @@ The following image shows the web application's appearance and functionality:
 
 ![Alt text](assets/images/dumpscreen%20-%20search%20bar.jpg)
 
-3. Webpage returns results of a map and weather for the next 5 days of any city
+3. User can select different genre of point of interests
+
+![Alt text](assets/images/dumpscreen%20-%20poi%20genre.jpg)
+
+4. Webpage returns results of a map and weather for the next 5 days of any city
 
 ![Alt text](assets/images/dumpscreen%20-%20results%20map%20weather.jpg)
 
-4. Webpages returns point of interests of any city
+5. Webpages returns point of interests of any city
 
 ![Alt text](assets/images/dumpscreen%20-%20poi%20side%20bar.jpg)
 
-5. Header wish-list dropdown and remove button
+6. User can add point of interests by button
+
+![Alt text](assets/images/dumpscreen%20-%20add%20to%20wishlist.jpg)
+
+7. Header wish-list dropdown and remove button
 
 ![Alt text](assets/images/dumpscreen%20-%20dropdown%20wishlist.jpg)
-
-![The City Wonderer includes a header with dropdown, a searching input, buttons for getting result, area for news and aside, map and weather cards with text, icons. ](assets/page.png)
 
 ### Future Development
 
 - Options for the user to choose / confirm between two cities with identical names in different countries and revealed in the map;
 - Youtube API to embed influencers’ travel videos about the city;
 - More API and partners to pull in latest news and information about the city;
-
-### Resources
