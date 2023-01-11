@@ -6,7 +6,7 @@ const searchInput = $("#city");
 const addButton = $("#add-btn");
 const asideContainer = $(".aside");
 const weatherCardWrapper = $("#five-day");
-const dropDownWishList = $(".dropdown-menu");
+const dropDownWishList = $("#dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
 const todayDate = moment();
@@ -81,6 +81,10 @@ function getPOI(lon, lat) {
       }
     });
   }
+}
+
+function setPoiCategory(poiCategory) {
+  openMapKinds = poiCategory;
 }
 
 //Get 5 day forecast for the given coordinates
