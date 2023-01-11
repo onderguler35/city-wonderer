@@ -13,7 +13,7 @@ const todayDate = moment();
 
 var cityName = "London";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
-var openMapLimit = "25";
+var openMapLimit = "23";
 var openMapRadius = "1000"; //meters
 var map;
 
@@ -184,6 +184,7 @@ function populatePOIAside(poiArray) {
     <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
     `);
   }
+  asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
 }
 
 function renderMap(lon, lat) {
@@ -216,7 +217,7 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button onclick="addPoiToLocalStorage('${poiTitle}')">Add my my wish list.</button>`
+        `<h3>${poiTitle}</h3>  <button class="dropdown-btn" onclick="addPoiToLocalStorage('${poiTitle}')">Add my wish list</button>`
       );
   }
 }
@@ -263,12 +264,12 @@ function populateWishListDropDown() {
       const cityPoiList = citiesWishList[city];
       let poisMarkup = "";
       cityPoiList.forEach((poi) => {
-        poisMarkup += `<li id='${poi}'>${poi} <button onclick='removeFromLocalStorage("${poi}")'>remove</button></li>`;
+        poisMarkup += `<li id='${poi}'>${poi} <button class="dropdown-btn" onclick='removeFromLocalStorage("${poi}")'>remove</button></li>`;
       });
 
       dropDownWishList.prepend(`
       <div id='${city}' >
-        <button>${city}</button>
+        <button class="dropdown-btn">${city}</button>
         <ul class="dropdown-item" ">${poisMarkup}</ul>
       `);
     }
