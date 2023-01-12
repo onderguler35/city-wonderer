@@ -17,6 +17,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  min-height: 100vh;
   background-color: #e9c8d3 !important ;
   font-family: "Raleway", sans-serif !important;
 }
@@ -159,7 +160,12 @@ h2 {
   align-items: center;
 }
 
+.container {
+  height: fit-content;
+}
+
 .container-2 {
+  margin-top: auto;
   width: 95%;
   margin: 0 auto;
 }
@@ -331,8 +337,8 @@ h2 {
 /* Footer */
 footer {
   text-align: center;
-  Margin: 5%;
-  padding: 3%;
+  margin-top: auto;
+  padding-top: 30px;
 }
 
 /* Media Query */
@@ -368,51 +374,6 @@ footer {
       "weather"
       "aside";
   }
-}
-/* 
-@media screen and (max-width: 1200px) {
-  #categoryGrid {
-    margin: 0px 5%;
-    display: grid;
-    grid-template-rows: 500px 500px 500px 500px 800px;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "London"
-      "Madrid"
-      "Paris"
-      "Amsterdam"
-      "Berlin";
-  }
-  .weathersection {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 50px;
-    gap: 20px;
-    margin-bottom: 20px;
-  }
-
-  .col1 {
-    display: grid;
-    grid-template-rows: 700px 500px 700px;
-    grid-template-columns: 1fr;
-    margin-bottom: 20px;
-    grid-template-areas:
-      "map"
-      "weather"
-      "aside";
-  }
-} */
-
-/* Animation */
-
-.rubberBand {
-  -webkit-animation-name: rubberBand;
-  animation-name: rubberBand;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  animation-iteration-count: 2;
 }
 
 @-webkit-keyframes rubberBand {
