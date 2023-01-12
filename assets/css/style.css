@@ -17,6 +17,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  min-height: 100vh;
   background-color: #e9c8d3 !important ;
   font-family: "Raleway", sans-serif !important;
 }
@@ -159,7 +160,12 @@ h2 {
   align-items: center;
 }
 
+.container {
+  height: fit-content;
+}
+
 .container-2 {
+  margin-top: auto;
   width: 95%;
   margin: 0 auto;
 }
@@ -329,16 +335,15 @@ h2 {
 }
 
 /* Footer */
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 3%;
+footer {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 30px;
 }
 
 /* Media Query */
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   #categoryGrid {
     margin: 0px 5%;
     display: grid;
@@ -369,18 +374,6 @@ h2 {
       "weather"
       "aside";
   }
-}
-
-/* Animation */
-
-.rubberBand {
-  -webkit-animation-name: rubberBand;
-  animation-name: rubberBand;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-  animation-iteration-count: 2;
 }
 
 @-webkit-keyframes rubberBand {
