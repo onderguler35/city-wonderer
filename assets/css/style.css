@@ -36,7 +36,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
   width: 100%;
-  height: 25% !important;
+  height: fit-content;
   background-color: #4d6a3c;
   color: white;
   border-color: #1b1816 !important;
@@ -55,10 +55,17 @@ h2 {
   height: fit-content;
 }
 .header #logo {
-  height: 6em;
-  overflow: hidden;
+  height: clamp(3rem, 8vw, 10rem);
   padding: 1%;
   /* z-index: 200; */
+}
+
+.name h1 {
+  font-size: clamp(0.2rem, 2.6vw, 3rem);
+}
+
+#slogan h4 {
+  font-size: clamp(0.2rem, 1.1vw, 1.7rem);
 }
 
 #slogan {
@@ -71,14 +78,14 @@ h2 {
 }
 
 .dropdown-menu {
-  transform: translate3d(-130px, 46px, 0px) !important;
+  /* transform: translate3d(-130px, 46px, 0px) !important; */
   background-color: rgba(255, 255, 255, 0.695) !important ;
   border-radius: 10px;
   color: rgb(255, 255, 255);
 }
 
 .dropdown button {
-  font-size: 1.2rem !important;
+  font-size: clamp(0.5rem, 1.2vw, 2rem) !important;
 }
 
 .wishlist button {
@@ -133,16 +140,17 @@ h2 {
   color: #e9c8d3 !important;
 }
 
-.btn:hover{
-  background-color: #4d6a3c!important ;
-  transition: 0.7s!important ;
+.btn:hover {
+  background-color: #4d6a3c !important ;
+  transition: 0.7s !important ;
 }
 
-.welcome h2 {
-  font-size: 2rem;
+.welcome h5 {
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 10px;
+  letter-spacing: 7px;
   padding: 5% 0 1% 0;
+  font-size: clamp(1rem, 2vw, 3rem);
 }
 
 .container-1 {
@@ -169,12 +177,12 @@ h2 {
 }
 
 #search-btn {
-  font-size: 20px;
+  font-size: clamp(0.5rem, 1.4vw, 2rem);
   background-color: #4d6a3c;
   border-radius: 10px;
   color: rgb(255, 255, 255) !important ;
   box-shadow: 5px color #4d6a3c;
-  padding: 5px 75px;
+  padding: 5px clamp(0.5rem, 2vw, 3rem);
   margin: 20px;
   position: center;
   border-bottom: 6px solid #5a1e26 !important;
@@ -209,7 +217,6 @@ h2 {
   grid-area: map;
 }
 
-
 .aside {
   grid-area: aside;
   display: flex;
@@ -239,6 +246,7 @@ h2 {
   color: var(--primary_colour);
   background-color: var(--secondary_colour);
   border-radius: 5px;
+  max-height:fit-content;
 }
 
 /* Category Grid CSS */
@@ -282,7 +290,11 @@ h2 {
   background-image: url("../images/berlin.jpg");
 }
 
-#City1, #City2, #City3, #City4, #City5 {
+#City1,
+#City2,
+#City3,
+#City4,
+#City5 {
   text-decoration: none;
   font-family: "Raleway", sans-serif !important;
   font-weight: 600 !important;
@@ -325,6 +337,7 @@ h2 {
 }
 
 /* Media Query */
+
 @media screen and (max-width: 600px) {
   #categoryGrid {
     margin: 0px 5%;
