@@ -329,10 +329,9 @@ h2 {
 }
 
 /* Footer */
-.footer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+footer {
+  text-align: center;
+  Margin: 5%;
   padding: 3%;
 }
 
