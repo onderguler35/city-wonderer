@@ -132,19 +132,16 @@
         </article>
       </div>
 
-      <div class="welcome">
-        <h5 id="call-to-action" class="rubberBand">
-          Create a new page in your Travel Book
-        </h5>
-      </div>
-
       <!-- search for a city -->
 
-      <div id="search-area">
-        <form id="search-city">
-          <div id="poi-categories-wrapper" class="dropdown">
+      <div class="search-cta-wrapper">
+        <div class="call-to-action">
+          <h2>Find your next adventure - search with City Wonderer now!</h2>
+        </div>
+        <form id="search-city" class="search-wrapper">
+          <div id="poi-categories-wrapper" class="dropdown categories-dropdown">
             <button
-              class="btn btn-primary dropdown-toggle"
+              class="dropdown-toggle categories-dropdown-button"
               type="button"
               data-toggle="dropdown"
               aria-expanded="false"
@@ -201,14 +198,17 @@
             name="city"
             type="text"
             id="city"
-            class="city-input"
+            class="searchbox-input"
             placeholder="Where to?"
             autofocus
           />
           <!-- the submit button -->
-          <button type="submit" id="search-btn">Travel</button>
+          <button type="submit" id="search-btn" class="search-btn">
+            Travel
+          </button>
         </form>
       </div>
+
       <!-- The section where the api information recieved through js will be populated -->
       <div id="container-2" class="container-2">
         <!-- Press button above and get results-->

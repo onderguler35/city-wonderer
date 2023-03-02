@@ -5,6 +5,8 @@
   --primary-pink-color: #cd8390;
   --secondary_colour: #e9ddc8;
   --third_colour: #5a1e26;
+
+  --medium-font-size: clamp(1rem, 1.3vw, 2rem);
 }
 
 /* Resets */
@@ -70,6 +72,7 @@ h2 {
 .logo {
   height: clamp(3rem, 5.3vw, 10rem);
   margin-left: 1em;
+  padding: 0.2em 0;
 }
 
 .navbar {
@@ -134,6 +137,16 @@ h2 {
   text-align: center;
 }
 
+.remove-poi-btn {
+  border: 1px solid rgba(0, 0, 255, 0.534);
+  background-color: transparent;
+  color: rgba(0, 0, 255, 0.527);
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  border-radius: 50%;
+  font-size: 1rem;
+}
+
 .hero {
   position: relative;
   min-height: 70vh;
@@ -158,7 +171,8 @@ h2 {
   backdrop-filter: blur(4px);
 }
 
-.welcome h1 {
+.welcome h1,
+.call-to-action {
   font-weight: 500;
   font-size: clamp(0.5rem, 2vw, 3rem);
   line-height: clamp(0.5rem, 2vw, 3rem);
@@ -177,28 +191,51 @@ h2 {
   color: #ffffffb4;
 }
 
-.remove-poi-btn {
-  border: 1px solid rgba(0, 0, 255, 0.534);
-  background-color: transparent;
-  color: rgba(0, 0, 255, 0.527);
-  width: 1.5rem !important;
-  height: 1.5rem !important;
-  border-radius: 50%;
-  font-size: 1rem;
+.search-cta-wrapper {
+  margin-top: auto;
 }
 
-.btn {
-  background-color: #5a1e26 !important  ;
-  border-radius: 10px !important;
-  border-color: #4d6a3c !important;
-  border-bottom: 2px solid #5a1e26 !important;
-  border-bottom: 4px solid #5a1e26 !important;
-  color: #e9c8d3 !important;
+.call-to-action h2 {
+  text-align: center;
+  margin-bottom: 0 !important;
 }
 
-.btn:hover {
+.search-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  top: 1em;
+}
+
+.categories-dropdown {
+  margin: 0;
+}
+
+.searchbox-input{
+  width: 70%;
+  border: none;
+  background-color: #ce8390 !important;
+  color: white!important;
+}
+
+.search-btn {
+  border: none;
+  border-top-right-radius: 40%;
+  border-bottom-right-radius: 40%;
+  font-size: clamp(0.5rem, 1.4vw, 2rem);
+  background-color: black;
+  color: rgb(255, 255, 255) !important ;
+  padding: 5px clamp(0.5rem, 2vw, 3rem);
+}
+
+.categories-dropdown-button {
+  background-color: #ce8390 !important;
+  color: #ffffff !important;
+  border: none;
+}
+
+.categories-dropdown-button:hover {
   background-color: #4d6a3c !important ;
-  transition: 0.7s !important ;
 }
 
 .welcome h5 {
@@ -223,44 +260,6 @@ h2 {
   margin-top: auto;
   width: 95%;
   margin: 0 auto;
-}
-
-#poi-categories-wrapper {
-  margin-right: 1em;
-}
-
-#search-city {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0 0 2% 0;
-}
-
-#search-btn {
-  font-size: clamp(0.5rem, 1.4vw, 2rem);
-  background-color: #4d6a3c;
-  border-radius: 10px;
-  color: rgb(255, 255, 255) !important ;
-  box-shadow: 5px color #4d6a3c;
-  padding: 5px clamp(0.5rem, 2vw, 3rem);
-  margin: 20px;
-  position: center;
-  border-bottom: 6px solid #5a1e26 !important;
-}
-
-#search-btn:hover {
-  background-color: #5a1e26;
-  transition: 0.7s;
-}
-
-#city {
-  font-size: 20px;
-  width: 100%;
-  border-radius: 5px;
-  border: 1px solid black;
-  height: 50px;
-  padding-left: 5px;
 }
 
 .col1 {
