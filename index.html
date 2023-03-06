@@ -88,10 +88,8 @@
               <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link">&#x2758;</a>
-              </li>
-              <li class="btn-group">
+
+              <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
                   href="#"
@@ -102,7 +100,7 @@
                   &#x2764; My Wishlist
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">List is empty</a></li>
+                  <li><a class="dropdown-item" href="#">Empty List</a></li>
                 </ul>
               </li>
             </ul>
@@ -162,6 +160,13 @@
                 Theatres and Entertainments
               </button>
               <button
+                onclick="setPoiCategory('tourist_facilities')"
+                class="dropdown-item"
+                type="button"
+              >
+                Tourist Facilities
+              </button>
+              <button
                 onclick="setPoiCategory('accomodations')"
                 class="dropdown-item"
                 type="button"
@@ -189,13 +194,7 @@
               >
                 Historic
               </button>
-              <button
-                onclick="setPoiCategory('tourist_facilities')"
-                class="dropdown-item"
-                type="button"
-              >
-                Tourist Facilities
-              </button>
+              
             </div>
           </div>
           <!-- input any city here -->
@@ -315,12 +314,6 @@
         </div>
       </div>
     </section>
-
-    
-
-
-
-    
 
     <!-- Footer -->
     <footer>

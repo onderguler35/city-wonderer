@@ -3,11 +3,10 @@
 :root {
   --primary_colour: #4d6a3c;
   --primary-pink-color: #cd8390;
-  --secondary_colour: #e9ddc8;
-  --third_colour: #5a1e26;
+  --secondary-color: #e9ddc8;
 
-  --medium-font-size: clamp(1rem, 1.3vw, 2rem);
-  --h1-font-size: clamp(0.5rem, 2vw, 3rem);
+  --medium-font-size: clamp(1.2rem, 1.3vw, 2rem);
+  --h1-font-size: clamp(1.5rem, 2vw, 3rem);
 }
 
 /* Resets */
@@ -48,7 +47,6 @@ h2 {
   display: flex;
   align-items: center;
   font-size: clamp(0.5rem, 1.4vw, 4rem);
- 
 }
 
 .name h1 {
@@ -83,6 +81,13 @@ h2 {
   background-color: #e6e6e6;
 }
 
+.nav-link {
+  font-weight: 500 !important;
+  font-size: clamp(1.4rem, 1.5vw, 1.6rem) !important;
+  margin-left: 1em !important;
+  width: 100%;
+}
+
 .navbar-nav li:last-of-type a {
   color: var(--primary-pink-color);
 }
@@ -92,13 +97,19 @@ h2 {
 }
 
 .dropdown-menu {
-  background-color: rgba(255, 255, 255, 0.89) !important ;
+  background-color: rgba(255, 255, 255, 0.928) !important ;
   border-radius: 10px;
   color: rgb(255, 255, 255);
+  max-width: fit-content;
 }
 
-.dropdown button {
-  font-size: clamp(0.5rem, 1.2vw, 2rem) !important;
+.navbar-nav .dropdown-menu {
+position: a;
+}
+
+.dropdown-item {
+  text-align: center !important;
+  font-size: clamp(1rem, 1.2vw, 2rem) !important;
 }
 
 .wishlist button {
@@ -106,7 +117,6 @@ h2 {
   border: none;
   width: 100%;
   text-transform: capitalize;
-  font-weight: 800;
 }
 
 .wishlist button:hover {
@@ -146,6 +156,7 @@ h2 {
 
 .hero {
   position: relative;
+  display: flex;
   min-height: 70vh;
   margin-bottom: 4em;
 }
@@ -163,14 +174,17 @@ h2 {
 
 .site-info-container {
   font-family: "Montserrat";
-  width: fit-content;
-  margin-left: 4em;
-  margin-top: 4em;
+  max-width: fit-content;
+  align-self: flex-start;
+  text-align: left;
+  padding: 2em 2em;
+  /* margin-left: 4em;
+  margin-top: 4em; */
   backdrop-filter: blur(4px);
 }
 
 .welcome h1,
-.call-to-action {
+.call-to-action h2 {
   font-weight: 500;
   font-size: var(--h1-font-size);
   line-height: var(--h1-font-size);
@@ -181,11 +195,11 @@ h2 {
 
 .description {
   margin-top: 2em;
-  width: 45ch;
+  overflow-wrap: break-word;
   font-style: normal;
   font-weight: 300;
-  font-size: clamp(0.5rem, 1.3vw, 3rem);
-  line-height: clamp(0.5rem, 1.7vw, 3rem);
+  font-size: var(--medium-font-size);
+  line-height: var(--medium-font-size);
   color: #ffffffb4;
 }
 
@@ -225,6 +239,7 @@ h2 {
 
 .searchbox-input::placeholder {
   color: #fff;
+  font-size: var(--medium-font-size);
 }
 
 input:-webkit-autofill,
@@ -242,7 +257,7 @@ input:-webkit-autofill:focus {
 }
 
 .half-circle {
-  height: 4rem;
+  height: clamp(2.5rem, 5vw, 4rem);
 }
 
 .magnifying-glass-icon {
@@ -319,7 +334,7 @@ input:-webkit-autofill:focus {
 .weather-card {
   padding: 10px;
   color: var(--primary_colour);
-  background-color: var(--secondary_colour);
+  background-color: var(--secondary-color);
   border-radius: 5px;
   max-height: fit-content;
 }
@@ -364,10 +379,15 @@ input:-webkit-autofill:focus {
 /* Footer */
 footer p {
   background-color: black;
-  color: var(--secondary_colour);
+  color: var(--secondary-color);
   text-align: center;
   margin: auto 0;
   padding: 0.3em;
 }
 
 /* Media Query */
+@media screen and (min-width: 600px) {
+  .description {
+    width: 45ch;
+  }
+}
