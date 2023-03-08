@@ -198,7 +198,7 @@ function addMarkersToMap(POIs) {
     L.marker([lat, lon])
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button class="dropdown-btn" onclick="addPoiToLocalStorage('${poiTitle}')">Add my wish list</button>`
+        `<button class="add-to-poi-btn" onclick="addPoiToLocalStorage('${poiTitle}')">${poiTitle} <h1>&#x2764;</h1></button>`
       );
   }
 }
@@ -224,11 +224,7 @@ function removeFromLocalStorage(poiName, event) {
 
 //Save poi and city to local storage.
 function addPoiToLocalStorage(poiName) {
-  if (!localStorage.getItem("wishlist")) {
-    localStorage.setItem("wishlist", JSON.stringify({}));
-  }
-
-  let wishList = JSON.parse(localStorage.getItem("wishlist"));
+  let wishList = JSON.parse(localStorage.getItem("wishlist")) || {};
   wishList[cityName]
     ? wishList[cityName].push(poiName)
     : (wishList[cityName] = [poiName]);

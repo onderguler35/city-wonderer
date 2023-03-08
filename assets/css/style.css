@@ -85,7 +85,7 @@ h2 {
   font-weight: 500 !important;
   font-size: clamp(1.4rem, 1.5vw, 1.6rem) !important;
   margin-left: 1em !important;
-  width: 100%;
+  width: fit-content;
 }
 
 .navbar-nav li:last-of-type a {
@@ -96,6 +96,10 @@ h2 {
   display: none !important;
 }
 
+.dropdown-toggle .nav-link:last-of-type {
+  padding-right: 0 !important;
+}
+
 .dropdown-menu {
   background-color: rgba(255, 255, 255, 0.928) !important ;
   border-radius: 10px;
@@ -104,7 +108,7 @@ h2 {
 }
 
 .navbar-nav .dropdown-menu {
-position: a;
+  position: a;
 }
 
 .dropdown-item {
@@ -178,8 +182,6 @@ position: a;
   align-self: flex-start;
   text-align: left;
   padding: 2em 2em;
-  /* margin-left: 4em;
-  margin-top: 4em; */
   backdrop-filter: blur(4px);
 }
 
@@ -311,6 +313,28 @@ input:-webkit-autofill:focus {
   grid-area: map;
 }
 
+.add-to-poi-btn {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  font-size: 1.3rem;
+}
+
+.add-to-poi-btn h1 {
+  margin: 0 0 0 0.2em;
+  color: red;
+}
+
+.add-to-poi-btn h1:hover {
+  color: rgba(255, 0, 0, 0.26);
+}
+
+.add-to-poi-btn h1:active {
+  color: red;
+  transform: scale(1.3);
+}
+
 .aside {
   grid-area: aside;
   display: flex;
@@ -372,7 +396,7 @@ input:-webkit-autofill:focus {
 
 .card-img-top {
   width: 100%;
-  height: 15vw;
+  height: clamp(10rem, 15vw, 17rem);
   object-fit: cover;
 }
 
