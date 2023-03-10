@@ -282,19 +282,19 @@ input:-webkit-autofill:focus {
   font-size: clamp(1rem, 2vw, 3rem);
 }
 
+.modal-title {
+  text-transform: capitalize ;
+  font-size: var(--h1-font-size);
+  font-weight: 700;
+}
+
 .container-1 {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.container {
-  height: fit-content;
-}
-
 .container-2 {
-  margin-top: auto;
-  width: 95%;
   margin: 0 auto;
 }
 

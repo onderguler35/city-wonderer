@@ -9,6 +9,7 @@ const weatherCardWrapper = $("#five-day");
 const dropDownWishList = $("#dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
+const modalTitle = $(".modal-title");
 const todayDate = moment();
 
 var cityName = "";
@@ -44,8 +45,6 @@ function getCoordinates(cityName) {
         lat = coorData.lat;
 
         searchInput.val("");
-        cityNewsSection.addClass("d-none");
-        resultsSection.removeClass("d-none");
         getPOI(lon, lat);
         getWeather(lon, lat);
         renderMap(lon, lat);
@@ -69,6 +68,7 @@ function getPOI(lon, lat) {
             lat: poi.geometry.coordinates[1],
             name: poi.properties.name,
             wikidata: poi.properties.wikidata,
+            xid: poi.properties.xid,
           });
         }
 
@@ -153,20 +153,43 @@ function displayForecastWeather(forecastData) {
   }
 }
 
-//Populate the right-hand-side area with the places of interest, each being a link to the wikidata pagecd
+//Populate the right-hand-side area with the places of interest, each being a link to the wikidata page
+//We using free api, which limits us to 10 API calls per second,
+//therefore we applyng throttling  in this function
 function populatePOIAside(poiArray) {
   $(".city-link").remove();
 
-  for (var poi of poiArray) {
-    poiName = poi.name;
-    if (poiName.length > 40) {
-      poiName = poiName.substring(0, 37) + "...";
-    }
-    asideContainer.append(`
-    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
-    `);
+  const totalPOIs = poiArray.length;
+  let loadedPOIs = 0;
+
+  for (let i = 0; i < totalPOIs; i++) {
+    const poi = poiArray[i];
+    let poiName = poi.name;
+
+    const url = `https://api.opentripmap.com/0.1/ru/places/xid/${poi.xid}?apikey=${openMapAPIKey}`;
+
+    setTimeout(function () {
+      $.get(url).then(function (xidData) {
+        console.log(xidData);
+
+        if (poiName.length > 40) {
+          poiName = poiName.substring(0, 37) + "...";
+        }
+
+        const linkHtml = `
+          <img src="${xidData.preview.source}" />
+          <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
+        `;
+
+        asideContainer.append(linkHtml);
+
+        loadedPOIs++;
+        if (loadedPOIs === totalPOIs) {
+          asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
+        }
+      });
+    }, i * 200); // delay each API call by 200 milliseconds
   }
-  asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
 }
 
 function renderMap(lon, lat) {
@@ -186,6 +209,7 @@ function renderMap(lon, lat) {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }
   ).addTo(map);
+  modalTitle.text(`Discover ${cityName} with City Wonderer!`);
 }
 
 //Add Markers to a map, acceps objects array from API
