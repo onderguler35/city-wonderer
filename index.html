@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>City Wonderer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -56,6 +52,11 @@
       integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
       crossorigin=""
     ></script>
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>City Wonderer</title>
   </head>
 
   <body>
@@ -140,6 +141,7 @@
           <img class="half-circle" src="./assets/images/half-l.png" />
           <div id="poi-categories-wrapper" class="dropdown categories-dropdown">
             <button
+              id="select-category"
               class="dropdown-toggle categories-dropdown-button"
               role="button"
               data-bs-toggle="dropdown"
@@ -344,13 +346,12 @@
           </div>
           <div class="modal-body">
             <!-- The section where the api information recieved through js will be populated -->
-            <div id="container-2" class="container-2">
-              <!-- Press button above and get results-->
-              <div id="results-section" class="col1">
-                <div id="map"></div>
-                <div id="five-day" class="weathersection mt-3"></div>
-                <div class="aside"></div>
-              </div>
+
+            <!-- Press button above and get results-->
+            <div id="results-section" class="col1">
+              <div class="aside"></div>
+              <div id="map"></div>
+              <div id="five-day" class="weathersection mt-3"></div>
             </div>
           </div>
           <div class="modal-footer">

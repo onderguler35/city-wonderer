@@ -10,12 +10,13 @@ const dropDownWishList = $("#dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
 const modalTitle = $(".modal-title");
+const selectedCategory = $("#select-category");
 const todayDate = moment();
 
 var cityName = "";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = "23";
-var openMapRadius = "1000"; //meters
+var openMapRadius = "5000"; //meters
 var map;
 
 init();
@@ -84,7 +85,11 @@ function getPOI(lon, lat) {
 
 function setPoiCategory(poiCategory) {
   openMapKinds = poiCategory;
-  getCoordinates(cityName);
+  selectedCategory.html(`${poiCategory.replaceAll("_", " ")}
+  <img
+    class="dropdown-arrow"
+    src="./assets/images/arrow-down-3101.svg"
+  />`);
 }
 
 //Get 5 day forecast for the given coordinates
@@ -153,45 +158,6 @@ function displayForecastWeather(forecastData) {
   }
 }
 
-//Populate the right-hand-side area with the places of interest, each being a link to the wikidata page
-//We using free api, which limits us to 10 API calls per second,
-//therefore we applyng throttling  in this function
-function populatePOIAside(poiArray) {
-  $(".city-link").remove();
-
-  const totalPOIs = poiArray.length;
-  let loadedPOIs = 0;
-
-  for (let i = 0; i < totalPOIs; i++) {
-    const poi = poiArray[i];
-    let poiName = poi.name;
-
-    const url = `https://api.opentripmap.com/0.1/ru/places/xid/${poi.xid}?apikey=${openMapAPIKey}`;
-
-    setTimeout(function () {
-      $.get(url).then(function (xidData) {
-        console.log(xidData);
-
-        if (poiName.length > 40) {
-          poiName = poiName.substring(0, 37) + "...";
-        }
-
-        const linkHtml = `
-          <img src="${xidData.preview.source}" />
-          <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
-        `;
-
-        asideContainer.append(linkHtml);
-
-        loadedPOIs++;
-        if (loadedPOIs === totalPOIs) {
-          asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
-        }
-      });
-    }, i * 200); // delay each API call by 200 milliseconds
-  }
-}
-
 function renderMap(lon, lat) {
   //Clear map if it needs to display further results
   if (map != null) {
@@ -214,16 +180,71 @@ function renderMap(lon, lat) {
 
 //Add Markers to a map, acceps objects array from API
 function addMarkersToMap(POIs) {
+  let markerNum = 1;
   for (const poi of POIs) {
     const lat = poi.geometry.coordinates[1];
     const lon = poi.geometry.coordinates[0];
     const poiTitle = poi.properties.name;
 
-    L.marker([lat, lon])
+    const myIcon = L.divIcon({
+      html: `<h4 class="map-marker">${markerNum}</h4>`,
+      className: 'my-icon'
+    });
+
+    L.marker([lat, lon], { icon: myIcon })
       .addTo(map)
       .bindPopup(
         `<button class="add-to-poi-btn" onclick="addPoiToLocalStorage('${poiTitle}')">${poiTitle} <h1>&#x2764;</h1></button>`
       );
+
+    markerNum++;
+  }
+}
+
+//Populate the right-hand-side area with the places of interest, each being a link to the wikidata page
+//We using free api, which limits us to 10 API calls per second,
+//therefore we applyng throttling  in this function
+function populatePOIAside(poiArray) {
+  asideContainer.html(""); //Empty previous data.
+
+  for (var i = 0; i < poiArray.length; i++) {
+    const poi = poiArray[i];
+    poiName = poi.name;
+
+    const url = `https://api.opentripmap.com/0.1/ru/places/xid/${poi.xid}?apikey=${openMapAPIKey}`;
+
+    setTimeout(
+      (function (i) {
+        return function () {
+          $.get(url).then(function (xidData) {
+            if (poiName.length > 40) {
+              poiName = poiName.substring(0, 37) + "...";
+            }
+            asideContainer.append(`
+            <div class="poi-card">
+              <h4> 
+                ${i + 1}.${xidData.name}
+              </h4>
+              <img src="${
+                xidData.preview
+                  ? xidData.preview.source
+                  : "/assets/images/image-not-found-icon.svg"
+              }" class="poi-card_img-top" alt="${xidData.name}">
+              <div class="poi-card_body">
+                ${
+                  xidData.wikipedia_extracts
+                    ? xidData.wikipedia_extracts.text
+                    : "No description found"
+                }  
+              </div>
+            </div>
+            <hr/>
+          `);
+          });
+        };
+      })(i),
+      i * 300
+    ); // delay each API call by 300 milliseconds
   }
 }
 
