@@ -130,8 +130,6 @@ function displayForecastWeather(forecastData) {
         forecastObj.weather[0].description
       }">
         <p>Temp: ${Math.round(forecastObj.main.temp)}&deg C</p>
-        <p>Wind: ${forecastObj.wind.speed} m/s</p>
-        <p>Humidity: ${forecastObj.main.humidity}%</p>
       </div>     
       `);
     }
@@ -151,8 +149,6 @@ function displayForecastWeather(forecastData) {
       lastForecastObj.weather[0].description
     }">
       <p>Temp: ${Math.round(lastForecastObj.main.temp)}&deg C</p>
-      <p>Wind: ${lastForecastObj.wind.speed} m/s</p>
-      <p>Humidity: ${lastForecastObj.main.humidity}%</p>
     </div>     
     `);
   }
@@ -167,6 +163,11 @@ function renderMap(lon, lat) {
   mapZoomLocation = [lat, lon];
   zoomLevel = 15; // Higher number = larger zoom.
   map = L.map("map").setView(mapZoomLocation, zoomLevel);
+
+  map.on('resize', function() {
+    // Force the map to invalidate its size and redraw the tiles
+    map.invalidateSize();
+  });
 
   L.tileLayer(
     `https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=${mapTilerKey}`,
@@ -188,7 +189,7 @@ function addMarkersToMap(POIs) {
 
     const myIcon = L.divIcon({
       html: `<h4 class="map-marker">${markerNum}</h4>`,
-      className: 'my-icon'
+      className: "my-icon",
     });
 
     L.marker([lat, lon], { icon: myIcon })
@@ -222,15 +223,14 @@ function populatePOIAside(poiArray) {
             }
             asideContainer.append(`
             <div class="poi-card">
-              <h4> 
-                ${i + 1}.${xidData.name}
-              </h4>
+            <h3 class="map-marker" >${i + 1}</h3>
               <img src="${
                 xidData.preview
                   ? xidData.preview.source
                   : "/assets/images/image-not-found-icon.svg"
               }" class="poi-card_img-top" alt="${xidData.name}">
               <div class="poi-card_body">
+              <h4> ${xidData.name}</h4>
                 ${
                   xidData.wikipedia_extracts
                     ? xidData.wikipedia_extracts.text
@@ -238,7 +238,6 @@ function populatePOIAside(poiArray) {
                 }  
               </div>
             </div>
-            <hr/>
           `);
           });
         };
