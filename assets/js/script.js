@@ -9,12 +9,14 @@ const weatherCardWrapper = $("#five-day");
 const dropDownWishList = $("#dropdown-menu");
 const cityNewsSection = $("#categoryGrid");
 const resultsSection = $("#results-section");
+const modalTitle = $(".modal-title");
+const selectedCategory = $("#select-category");
 const todayDate = moment();
 
 var cityName = "";
 var openMapKinds = "theatres_and_entertainments"; //accomodations, architecture, museums, theatres_and_entertainments, historic, tourist_facilities
 var openMapLimit = "23";
-var openMapRadius = "1000"; //meters
+var openMapRadius = "5000"; //meters
 var map;
 
 init();
@@ -44,8 +46,6 @@ function getCoordinates(cityName) {
         lat = coorData.lat;
 
         searchInput.val("");
-        cityNewsSection.addClass("d-none");
-        resultsSection.removeClass("d-none");
         getPOI(lon, lat);
         getWeather(lon, lat);
         renderMap(lon, lat);
@@ -69,6 +69,7 @@ function getPOI(lon, lat) {
             lat: poi.geometry.coordinates[1],
             name: poi.properties.name,
             wikidata: poi.properties.wikidata,
+            xid: poi.properties.xid,
           });
         }
 
@@ -84,7 +85,11 @@ function getPOI(lon, lat) {
 
 function setPoiCategory(poiCategory) {
   openMapKinds = poiCategory;
-  getCoordinates(cityName);
+  selectedCategory.html(`${poiCategory.replaceAll("_", " ")}
+  <img
+    class="dropdown-arrow"
+    src="./assets/images/arrow-down-3101.svg"
+  />`);
 }
 
 //Get 5 day forecast for the given coordinates
@@ -125,8 +130,6 @@ function displayForecastWeather(forecastData) {
         forecastObj.weather[0].description
       }">
         <p>Temp: ${Math.round(forecastObj.main.temp)}&deg C</p>
-        <p>Wind: ${forecastObj.wind.speed} m/s</p>
-        <p>Humidity: ${forecastObj.main.humidity}%</p>
       </div>     
       `);
     }
@@ -146,27 +149,9 @@ function displayForecastWeather(forecastData) {
       lastForecastObj.weather[0].description
     }">
       <p>Temp: ${Math.round(lastForecastObj.main.temp)}&deg C</p>
-      <p>Wind: ${lastForecastObj.wind.speed} m/s</p>
-      <p>Humidity: ${lastForecastObj.main.humidity}%</p>
     </div>     
     `);
   }
-}
-
-//Populate the right-hand-side area with the places of interest, each being a link to the wikidata pagecd
-function populatePOIAside(poiArray) {
-  $(".city-link").remove();
-
-  for (var poi of poiArray) {
-    poiName = poi.name;
-    if (poiName.length > 40) {
-      poiName = poiName.substring(0, 37) + "...";
-    }
-    asideContainer.append(`
-    <a class="city-link" href="https://www.wikidata.org/wiki/${poi.wikidata}" target="_blank">${poiName}</a>
-    `);
-  }
-  asideContainer.prepend(`<h3 class="city-link">Places to see:</h3>`);
 }
 
 function renderMap(lon, lat) {
@@ -179,6 +164,11 @@ function renderMap(lon, lat) {
   zoomLevel = 15; // Higher number = larger zoom.
   map = L.map("map").setView(mapZoomLocation, zoomLevel);
 
+  map.on('resize', function() {
+    // Force the map to invalidate its size and redraw the tiles
+    map.invalidateSize();
+  });
+
   L.tileLayer(
     `https://api.maptiler.com/maps/basic/{z}/{x}/{y}.png?key=${mapTilerKey}`,
     {
@@ -186,20 +176,74 @@ function renderMap(lon, lat) {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }
   ).addTo(map);
+  modalTitle.text(`Discover ${cityName} with City Wonderer!`);
 }
 
 //Add Markers to a map, acceps objects array from API
 function addMarkersToMap(POIs) {
+  let markerNum = 1;
   for (const poi of POIs) {
     const lat = poi.geometry.coordinates[1];
     const lon = poi.geometry.coordinates[0];
     const poiTitle = poi.properties.name;
 
-    L.marker([lat, lon])
+    const myIcon = L.divIcon({
+      html: `<h4 class="map-marker">${markerNum}</h4>`,
+      className: "my-icon",
+    });
+
+    L.marker([lat, lon], { icon: myIcon })
       .addTo(map)
       .bindPopup(
-        `<h3>${poiTitle}</h3>  <button class="dropdown-btn" onclick="addPoiToLocalStorage('${poiTitle}')">Add my wish list</button>`
+        `<button class="add-to-poi-btn" onclick="addPoiToLocalStorage('${poiTitle}')">${poiTitle} <h1>&#x2764;</h1></button>`
       );
+
+    markerNum++;
+  }
+}
+
+//Populate the right-hand-side area with the places of interest, each being a link to the wikidata page
+//We using free api, which limits us to 10 API calls per second,
+//therefore we applyng throttling  in this function
+function populatePOIAside(poiArray) {
+  asideContainer.html(""); //Empty previous data.
+
+  for (var i = 0; i < poiArray.length; i++) {
+    const poi = poiArray[i];
+    poiName = poi.name;
+
+    const url = `https://api.opentripmap.com/0.1/ru/places/xid/${poi.xid}?apikey=${openMapAPIKey}`;
+
+    setTimeout(
+      (function (i) {
+        return function () {
+          $.get(url).then(function (xidData) {
+            if (poiName.length > 40) {
+              poiName = poiName.substring(0, 37) + "...";
+            }
+            asideContainer.append(`
+            <div class="poi-card">
+            <h3 class="map-marker" >${i + 1}</h3>
+              <img src="${
+                xidData.preview
+                  ? xidData.preview.source
+                  : "/assets/images/image-not-found-icon.svg"
+              }" class="poi-card_img-top" alt="${xidData.name}">
+              <div class="poi-card_body">
+              <h4> ${xidData.name}</h4>
+                ${
+                  xidData.wikipedia_extracts
+                    ? xidData.wikipedia_extracts.text
+                    : "No description found"
+                }  
+              </div>
+            </div>
+          `);
+          });
+        };
+      })(i),
+      i * 300
+    ); // delay each API call by 300 milliseconds
   }
 }
 
@@ -224,11 +268,7 @@ function removeFromLocalStorage(poiName, event) {
 
 //Save poi and city to local storage.
 function addPoiToLocalStorage(poiName) {
-  if (!localStorage.getItem("wishlist")) {
-    localStorage.setItem("wishlist", JSON.stringify({}));
-  }
-
-  let wishList = JSON.parse(localStorage.getItem("wishlist"));
+  let wishList = JSON.parse(localStorage.getItem("wishlist")) || {};
   wishList[cityName]
     ? wishList[cityName].push(poiName)
     : (wishList[cityName] = [poiName]);
