@@ -52,31 +52,28 @@ The following image shows the web application's appearance and functionality:
 
 1. Overall appearance of our landing page with css grid to display news
 
-![Alt text](assets/images/dumpscreen%20-%20welcome%20page.jpg)
+![Alt text](assets/images/1.png)
+![Alt text](assets/images/2.png)
 
 2. Webpage search bar, user input and button for results
 
-![Alt text](assets/images/dumpscreen%20-%20search%20bar.jpg)
+![Alt text](assets/images/3.png)
 
 3. User can select different genre of point of interests
 
-![Alt text](assets/images/dumpscreen%20-%20poi%20genre.jpg)
+![Alt text](assets/images/4.png)
 
 4. Webpage returns results of a map and weather for the next 5 days of any city
 
-![Alt text](assets/images/dumpscreen%20-%20results%20map%20weather.jpg)
+![Alt text](assets/images/5.png)
 
-5. Webpages returns point of interests of any city
+5. User can add point of interests by button
 
-![Alt text](assets/images/dumpscreen%20-%20poi%20side%20bar.jpg)
-
-6. User can add point of interests by button
-
-![Alt text](assets/images/dumpscreen%20-%20add%20to%20wishlist.jpg)
+![Alt text](assets/images/6.png)
 
 7. Header wish-list dropdown and remove button
 
-![Alt text](assets/images/dumpscreen%20-%20dropdown%20wishlist.jpg)
+![Alt text](assets/images/7.png)
 
 ### Future Development
 
