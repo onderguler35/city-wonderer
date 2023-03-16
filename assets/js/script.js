@@ -89,6 +89,7 @@ function setPoiCategory(poiCategory) {
   <img
     class="dropdown-arrow"
     src="./assets/images/arrow-down-3101.svg"
+    alt="arrow-down"
   />`);
 }
 
@@ -227,7 +228,7 @@ function populatePOIAside(poiArray) {
               <img src="${
                 xidData.preview
                   ? xidData.preview.source
-                  : "/assets/images/image-not-found-icon.svg"
+                  : "./assets/images/image-not-found-icon.svg"
               }" class="poi-card_img-top" alt="${xidData.name}">
               <div class="poi-card_body">
               <h4> ${xidData.name}</h4>
